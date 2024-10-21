@@ -4,6 +4,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
+
 import Error from "./Error";
 
 const mainRouter = createBrowserRouter([
