@@ -44,7 +44,7 @@ export default [
       "arrow-body-style": "off",
       "prefer-arrow-callback": "off",
       curly: "error",
-      "no-unused-vars": "off",
+      "no-unused-vars": "error",
       "@typescript-eslint/no-unused-vars": "error",
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
