@@ -1,9 +1,4 @@
-import {
-  Navigate,
-  Outlet,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Error from "./Error";
 

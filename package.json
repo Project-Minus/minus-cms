@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky",
-    "postinstall": "husky init"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
