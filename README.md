@@ -12,6 +12,8 @@ pnpm lint-staged
 
 develop에 바로 merge X,
 pr로 올려주세요
+branch 명은 feat 등의 해당 기능 유형 / 설명 식으로
+이슈번호만 빼고 그대로 사용하겠습니다
 
 ---
 
