@@ -85,7 +85,6 @@ export default [
             order: "asc",
             caseInsensitive: true,
           },
-          "newlines-between": "always",
         },
       ],
       "import/first": "error",
