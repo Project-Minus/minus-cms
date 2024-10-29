@@ -1,5 +1,4 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LayersIcon from "@mui/icons-material/Layers";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -19,11 +18,6 @@ export default function MUIProvider(props: ProviderProps) {
     {
       kind: "header",
       title: "Main items",
-    },
-    {
-      segment: "dashboard",
-      title: "Dashboard",
-      icon: <DashboardIcon />,
     },
     {
       segment: "others",
