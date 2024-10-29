@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export default function Dashboard() {
+export default function Others() {
   return (
     <Box
       sx={{
@@ -11,7 +11,7 @@ export default function Dashboard() {
         textAlign: "center",
       }}
     >
-      <Typography>hi minus! </Typography>
+      <Typography>hi Others! </Typography>
     </Box>
   );
 }
