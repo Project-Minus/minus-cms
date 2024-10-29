@@ -5,8 +5,6 @@ title: ''
 labels: ''
 assignees: kyle970320
 
----
-
 ## 추가/수정된 구성 요소
  
 ### 변경 유형
