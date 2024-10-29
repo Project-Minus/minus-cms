@@ -1,11 +1,13 @@
 import "./App.css";
-import DashboardLayoutBasic from "./pages/dashboard/Dashboard";
+
+import MUIProvider from "./app/muiProvider/MUIProvider";
+import MainRouter from "./app/routers/MainRouters";
 
 function App() {
   return (
-    <>
-      <DashboardLayoutBasic />
-    </>
+    <MUIProvider>
+      <MainRouter />
+    </MUIProvider>
   );
 }
 
