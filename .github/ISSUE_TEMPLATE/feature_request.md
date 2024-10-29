@@ -3,13 +3,11 @@ name: Feature request
 about: Suggest an idea for this project
 title: ''
 labels: ''
-assignees: ''
-
----
+assignees: kyle970320
 
 ## 추가/수정된 구성 요소
  
-### 변경 유형 / Types of Changes
+### 변경 유형
 - [ ] 핵심 / Core
 - [ ] 버그 수정 / Bugfix
 - [ ] 디자인 수정 / Design
