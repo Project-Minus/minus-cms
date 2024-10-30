@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllTable } from "./init";
+import { Article } from "./tableType";
 
-interface Database {
-  id: string;
-}
+type Database = Article;
 
 export const useGetTable = <T extends Database>(tableName: string) => {
   const { data: tableData }: { data: { data: Array<T> } } = useQuery({
