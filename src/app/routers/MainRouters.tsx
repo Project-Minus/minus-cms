@@ -1,7 +1,8 @@
 import Dashboard from "@pages/dashboard/Dashboard";
 import Layout from "@pages/layout/Layout";
 import Others from "@pages/others/Others";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import PostCategories from "@pages/settings/postCategories/PostCategories";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./Error";
 
 const mainRouter = createBrowserRouter([
@@ -16,6 +17,16 @@ const mainRouter = createBrowserRouter([
       {
         path: "/others",
         element: <Others />,
+      },
+      {
+        path: "settings",
+        element: <Outlet />,
+        children: [
+          {
+            path: "categories",
+            element: <PostCategories />,
+          },
+        ],
       },
     ],
   },
