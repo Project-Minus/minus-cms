@@ -20,9 +20,21 @@ export default function MUIProvider(props: ProviderProps) {
       title: "Main items",
     },
     {
-      segment: "others",
-      title: "Others",
+      segment: "blog",
+      title: "Blog",
       icon: <ShoppingCartIcon />,
+      children: [
+        {
+          segment: "write_article",
+          title: "Writing Post",
+          icon: <DescriptionIcon />,
+        },
+        {
+          segment: "list_article",
+          title: "Posting list",
+          icon: <DescriptionIcon />,
+        },
+      ],
     },
     {
       kind: "divider",
@@ -32,13 +44,13 @@ export default function MUIProvider(props: ProviderProps) {
       title: "Analytics",
     },
     {
-      segment: "reports",
-      title: "Reports",
+      segment: "settings",
+      title: "Settings",
       icon: <BarChartIcon />,
       children: [
         {
-          segment: "sales",
-          title: "Sales",
+          segment: "categories",
+          title: "Post categories",
           icon: <DescriptionIcon />,
         },
         {
