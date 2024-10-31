@@ -1,10 +1,9 @@
 import { useGetTable } from "@app/supabase/useGetTable";
 import { Box, Typography } from "@mui/material";
+import PaginateTable from "@widgets/paginateTable/PaginateTable";
 
 export default function Dashboard() {
   const { data } = useGetTable("article");
-
-  console.log(data);
 
   return (
     <Box
@@ -17,6 +16,9 @@ export default function Dashboard() {
       }}
     >
       <Typography>hi minus! </Typography>
+      <div>
+        <PaginateTable rows={data}></PaginateTable>
+      </div>
     </Box>
   );
 }
