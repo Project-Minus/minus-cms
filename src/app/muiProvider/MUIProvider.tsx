@@ -71,8 +71,8 @@ export default function MUIProvider(props: ProviderProps) {
           icon: <DescriptionIcon />,
         },
         {
-          segment: "traffic",
-          title: "Traffic",
+          segment: "traffics",
+          title: "Traffics",
           icon: <DescriptionIcon />,
         },
       ],
