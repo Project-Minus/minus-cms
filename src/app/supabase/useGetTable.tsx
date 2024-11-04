@@ -1,4 +1,4 @@
-import { Database } from "@shared/types/database";
+import { Database } from "@shared/types/tableType";
 import { useQuery } from "@tanstack/react-query";
 import { getAllTable } from "./init";
 

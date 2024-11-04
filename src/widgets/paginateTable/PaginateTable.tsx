@@ -1,11 +1,11 @@
-import { Article } from "@app/supabase/tableType";
 import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Database } from "@shared/types/tableType";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
 interface Props {
-  rows: Array<Article>;
+  rows: Array<Database>;
   columns: Array<GridColDef>;
 }
 export default function PaginateTable(props: Props) {
