@@ -44,6 +44,23 @@ export default function MUIProvider(props: ProviderProps) {
       title: "Analytics",
     },
     {
+      segment: "data",
+      title: "Data",
+      icon: <BarChartIcon />,
+      children: [
+        {
+          segment: "tables",
+          title: "Tables",
+          icon: <DescriptionIcon />,
+        },
+        {
+          segment: "columns",
+          title: "Columns",
+          icon: <DescriptionIcon />,
+        },
+      ],
+    },
+    {
       segment: "settings",
       title: "Settings",
       icon: <BarChartIcon />,
