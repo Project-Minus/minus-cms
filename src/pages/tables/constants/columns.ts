@@ -1,35 +1,57 @@
-import { GridColDef } from "@mui/x-data-grid";
-
-export const dataColumns: { [key: string]: GridColDef[] } = {
+export interface HeadCell {
+  id: string;
+  label: string;
+  numeric: boolean;
+  disablePadding: boolean;
+}
+export const dataColumn: { [key: string]: Array<HeadCell> } = {
   article: [
-    { field: "id", headerName: "ID", width: 500 },
-    { field: "title", headerName: "Title", width: 200 },
+    { id: "id", label: "ID", numeric: false, disablePadding: true },
+    { id: "title", label: "Title", numeric: false, disablePadding: true },
     {
-      field: "description",
-      headerName: "Description",
-      width: 500,
+      id: "description",
+      label: "Description",
+      numeric: false,
+      disablePadding: true,
     },
-    { field: "created_at", headerName: "Created At", width: 300 },
+    {
+      id: "created_at",
+      label: "Created At",
+      numeric: false,
+      disablePadding: true,
+    },
   ],
   category: [
-    { field: "id", headerName: "ID", width: 500 },
-    { field: "name", headerName: "Name", width: 200 },
+    { id: "id", label: "ID", numeric: false, disablePadding: true },
+    { id: "name", label: "Name", numeric: false, disablePadding: true },
     {
-      field: "description",
-      headerName: "Description",
-      width: 500,
+      id: "description",
+      label: "Description",
+      numeric: false,
+      disablePadding: true,
     },
-    { field: "created_at", headerName: "Created At", width: 300 },
+    {
+      id: "created_at",
+      label: "Created At",
+      numeric: false,
+      disablePadding: true,
+    },
   ],
   user: [
-    { field: "id", headerName: "ID", width: 500 },
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "age", headerName: "Age", width: 200 },
+    { id: "id", label: "ID", numeric: false, disablePadding: true },
+    { id: "name", label: "Name", numeric: false, disablePadding: true },
+    { id: "age", label: "Age", numeric: false, disablePadding: true },
     {
-      field: "email",
-      headerName: "Email",
-      width: 500,
+      id: "email",
+      label: "Email",
+      numeric: false,
+      disablePadding: true,
     },
-    { field: "created_at", headerName: "Created At", width: 300 },
+    {
+      id: "created_at",
+      label: "Created At",
+      numeric: false,
+      disablePadding: true,
+    },
   ],
 };
