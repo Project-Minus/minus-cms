@@ -1,7 +1,8 @@
+import Columns from "@pages/columns/Columns";
 import Dashboard from "@pages/dashboard/Dashboard";
 import Layout from "@pages/layout/Layout";
-import Others from "@pages/others/Others";
 import PostCategories from "@pages/settings/postCategories/PostCategories";
+import Tables from "@pages/tables/Tables";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./Error";
 
@@ -15,8 +16,18 @@ const mainRouter = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/others",
-        element: <Others />,
+        path: "/data",
+        element: <Outlet />,
+        children: [
+          {
+            path: "tables",
+            element: <Tables />,
+          },
+          {
+            path: "columns",
+            element: <Columns />,
+          },
+        ],
       },
       {
         path: "settings",

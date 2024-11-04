@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export default function Others() {
+export default function Columns() {
   return (
     <Box
       sx={{
@@ -11,7 +11,7 @@ export default function Others() {
         textAlign: "center",
       }}
     >
-      <Typography>hi Others! </Typography>
+      <Typography>hi Columns!</Typography>
     </Box>
   );
 }
