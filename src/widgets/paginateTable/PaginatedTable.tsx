@@ -21,7 +21,13 @@ import Typography from "@mui/material/Typography";
 import { visuallyHidden } from "@mui/utils";
 import { HeadCell } from "@pages/tables/constants/columns";
 import { Database } from "@shared/types/tableType";
-import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useDeferredValue,
+  useMemo,
+  useState,
+} from "react";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -230,10 +236,6 @@ export default function PaginatedTable(props: Props) {
     setDense(event.target.checked);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const visibleRows = useMemo(
     () =>
       [...rows]
@@ -241,6 +243,9 @@ export default function PaginatedTable(props: Props) {
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [rows, order, orderBy, page, rowsPerPage],
   );
+
+  const defferdRows = useDeferredValue(visibleRows);
+  const defferdColumns = useDeferredValue(columns);
 
   return (
     <Box sx={{ width: "100%", height: "80%" }}>
@@ -253,7 +258,7 @@ export default function PaginatedTable(props: Props) {
             size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
-              columns={columns}
+              columns={defferdColumns}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -262,7 +267,7 @@ export default function PaginatedTable(props: Props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
+              {defferdRows.map((row, index) => {
                 const isItemSelected = selected.includes(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -286,7 +291,7 @@ export default function PaginatedTable(props: Props) {
                         }}
                       />
                     </TableCell>
-                    {columns.map((column) => {
+                    {defferdColumns.map((column) => {
                       if (column.id === "id") {
                         return (
                           <TableCell
@@ -306,13 +311,15 @@ export default function PaginatedTable(props: Props) {
                   </TableRow>
                 );
               })}
-              {emptyRows > 0 && (
+              {defferdRows.length <= 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 600,
                   }}
                 >
-                  <TableCell colSpan={6}>no records found</TableCell>
+                  <TableCell style={{ textAlign: "center" }} colSpan={6}>
+                    no records found
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>
