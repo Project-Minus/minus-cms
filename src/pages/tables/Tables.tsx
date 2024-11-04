@@ -1,8 +1,20 @@
 import { useGetTable } from "@app/supabase/useGetTable";
 import { Box, Typography } from "@mui/material";
+import { GridColDef } from "@mui/x-data-grid";
 import Select from "@shared/select/Select";
 import PaginateTable from "@widgets/paginateTable/PaginateTable";
 import { useState } from "react";
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 500 },
+  { field: "title", headerName: "Title", width: 200 },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 500,
+  },
+  { field: "created_at", headerName: "Created At", width: 300 },
+];
 
 export default function Tables() {
   const [selectedTable, setSelectedTable] = useState<string>("");
@@ -35,7 +47,7 @@ export default function Tables() {
         placeholder="table"
         onChange={onChangeSelect}
       />
-      <PaginateTable rows={data} />
+      <PaginateTable rows={data} columns={columns} />
     </Box>
   );
 }
