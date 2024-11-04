@@ -2,6 +2,7 @@ import Dashboard from "@pages/dashboard/Dashboard";
 import Layout from "@pages/layout/Layout";
 import Others from "@pages/others/Others";
 import PostCategories from "@pages/settings/postCategories/PostCategories";
+import Traffics from "@pages/settings/traffics/traffics";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./Error";
 
@@ -25,6 +26,10 @@ const mainRouter = createBrowserRouter([
           {
             path: "categories",
             element: <PostCategories />,
+          },
+          {
+            path: "traffics",
+            element: <Traffics />,
           },
         ],
       },
