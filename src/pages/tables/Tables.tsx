@@ -1,14 +1,14 @@
 import { useGetTable } from "@app/supabase/useGetTable";
-import { Box, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import Select from "@shared/select/Select";
-import PaginateTable from "@widgets/paginateTable/PaginateTable";
+import PaginatedTable from "@widgets/paginateTable/PaginatedTable";
 import { useMemo, useState } from "react";
-import { dataColumns } from "./constants/columns";
+import { dataColumn } from "./constants/columns";
 
 export default function Tables() {
   const [selectedTable, setSelectedTable] = useState<string>("");
   const { data } = useGetTable(selectedTable);
-
+  const rowData = Array.isArray(data) ? data : [];
   const dataTables = [
     { label: "article", value: "article" },
     { label: "category", value: "category" },
@@ -21,29 +21,34 @@ export default function Tables() {
 
   const currentCloumns = useMemo(() => {
     if (!selectedTable) {
-      return dataColumns.article;
+      return dataColumn.article;
     }
-    return dataColumns?.[selectedTable];
+    return dataColumn?.[selectedTable];
   }, [selectedTable]);
 
   return (
-    <Box
+    <Container
+      style={{
+        maxWidth: "1500px",
+        height: "100%",
+        justifyContent: "space-around",
+        alignItems: "flex-end",
+      }}
       sx={{
         py: 4,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
         textAlign: "center",
       }}
     >
-      <Typography>hi Tables!</Typography>
       <Select
         value={selectedTable}
         options={dataTables}
         placeholder="table"
         onChange={onChangeSelect}
       />
-      <PaginateTable rows={data} columns={currentCloumns} />
-    </Box>
+      {/* <PaginateTable rows={data} columns={currentCloumns} /> */}
+      <PaginatedTable rows={rowData} columns={currentCloumns} />
+    </Container>
   );
 }
