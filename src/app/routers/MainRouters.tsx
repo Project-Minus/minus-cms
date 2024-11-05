@@ -1,10 +1,13 @@
+import { WriteArticle, ListArtcle } from "@pages/blog";
 import Columns from "@pages/columns/Columns";
 import Dashboard from "@pages/dashboard/Dashboard";
 import Layout from "@pages/layout/Layout";
 import PostCategories from "@pages/settings/postCategories/PostCategories";
 import Traffics from "@pages/settings/traffics/traffics";
+
 import Tables from "@pages/tables/Tables";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+
 import Error from "./Error";
 
 const mainRouter = createBrowserRouter([
@@ -15,6 +18,20 @@ const mainRouter = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "blog",
+        element: <Outlet />,
+        children: [
+          {
+            path: "write-article",
+            element: <WriteArticle />,
+          },
+          {
+            path: "list-article",
+            element: <ListArtcle />,
+          },
+        ],
       },
       {
         path: "/data",

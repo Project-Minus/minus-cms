@@ -25,6 +25,8 @@
     "@mui/x-data-grid": "^7.22.0",
     "@supabase/supabase-js": "^2.46.1",
     "@tanstack/react-query": "^5.59.16",
+    "@toast-ui/editor": "^3.2.2",
+    "@toast-ui/react-editor": "^3.2.3",
     "@toolpad/core": "^0.8.1",
     "axios": "^1.7.7",
     "react": "^18.3.1",

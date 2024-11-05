@@ -22,15 +22,16 @@ export default function MUIProvider(props: ProviderProps) {
     {
       segment: "blog",
       title: "Blog",
+      // 변경 예정
       icon: <ShoppingCartIcon />,
       children: [
         {
-          segment: "write_article",
+          segment: "write-article",
           title: "Writing Post",
           icon: <DescriptionIcon />,
         },
         {
-          segment: "list_article",
+          segment: "list-article",
           title: "Posting list",
           icon: <DescriptionIcon />,
         },
