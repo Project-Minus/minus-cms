@@ -15,8 +15,10 @@ interface Props {
   contents: ReactNode;
   parentDimension: { width: number; height: number };
   position?: TooltipPosition;
-  size?: "small" | "medium" | "large" | "extraLarge";
+  size?: string;
   isTail?: boolean;
+  textColor: string;
+  backgroundColor: string;
 }
 export default function SpeechBubble(props: Props) {
   const {
@@ -25,11 +27,15 @@ export default function SpeechBubble(props: Props) {
     position = "top",
     size,
     isTail = true,
+    textColor,
+    backgroundColor,
   } = props;
   const [positionStyle, setPositionStyle] = useState<CSSProperties>({});
   const bubbleRef = useRef<HTMLDivElement>(null);
   const positionClass = isTail ? ` speech-bubble--${position}` : "";
   const sizeClass = size ? ` speech-bubble--${size}` : "";
+  const textClass = ` speech-bubble--text--${textColor}`;
+  const backgroundClass = ` speech-bubble--background--${backgroundColor}`;
   const childWidth = bubbleRef?.current?.clientWidth;
   const childHeight = bubbleRef?.current?.clientHeight;
 
@@ -57,7 +63,7 @@ export default function SpeechBubble(props: Props) {
       onClick={preventEvent}
       ref={bubbleRef}
       style={positionStyle}
-      className={`speech-bubble${positionClass}${sizeClass}`}
+      className={`speech-bubble${positionClass}${sizeClass}${textClass}${backgroundClass}`}
     >
       {contents}
     </div>
