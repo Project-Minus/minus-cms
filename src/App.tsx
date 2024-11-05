@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 
 import MUIProvider from "./app/muiProvider/MUIProvider";
-import MainRouter from "./app/routers/MainRouters";
+import { MainRouter } from "./app/routers/MainRouters";
 
 export const queryClient = new QueryClient();
 

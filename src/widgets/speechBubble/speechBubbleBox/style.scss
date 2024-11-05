@@ -1,0 +1,39 @@
+.bubble-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  &__contents {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &.draggable {
+    &:hover {
+      .speech-bubble {
+        opacity: 1;
+        pointer-events: all;
+        -webkit-user-select: text; /* Safari */
+        -ms-user-select: text; /* IE 10 and IE 11 */
+        -moz-user-select: text;
+        user-select: text; /* Standard syntax */
+      }
+    }
+  }
+  &.non-draggable {
+    &:hover {
+      .speech-bubble {
+        opacity: 1;
+      }
+    }
+  }
+  .speech-bubble {
+    opacity: 0;
+    transition: opacity 0.2s;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    -moz-user-select: none;
+    user-select: none; /* Standard syntax */
+  }
+}

@@ -1,3 +1,4 @@
+import { componentRouterInPage } from "@app/routers/MainRouters";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LayersIcon from "@mui/icons-material/Layers";
@@ -14,6 +15,22 @@ interface ProviderProps {
 export default function MUIProvider(props: ProviderProps) {
   const { children, window } = props;
   const windows = window !== undefined ? window() : undefined;
+  const componentNavigation = () => {
+    const childrens = componentRouterInPage.children.map((child) => {
+      return {
+        segment: child.path,
+        title: child.path.charAt(0).toUpperCase() + child.path.slice(1),
+        icon: <DescriptionIcon />,
+      };
+    });
+
+    return {
+      segment: "component",
+      title: "Component",
+      icon: <BarChartIcon />,
+      children: [...childrens],
+    };
+  };
   const NAVIGATION: Navigation = [
     {
       kind: "header",
@@ -44,13 +61,14 @@ export default function MUIProvider(props: ProviderProps) {
       kind: "header",
       title: "Analytics",
     },
+    componentNavigation(),
     {
-      segment: "data",
+      segment: "tables",
       title: "Data",
       icon: <BarChartIcon />,
       children: [
         {
-          segment: "tables",
+          segment: "",
           title: "Tables",
           icon: <DescriptionIcon />,
         },
