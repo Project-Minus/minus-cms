@@ -15,7 +15,9 @@ interface Props {
   contents: ReactNode;
   bubbleContents: ReactNode | string;
   position?: TooltipPosition;
-  size?: "small" | "medium" | "large" | "extraLarge";
+  textColor?: string;
+  backgroundColor?: string;
+  size?: string;
   isTail?: boolean;
   isShowBubble?: boolean;
   isDraggable?: boolean;
@@ -30,6 +32,8 @@ export default function SpeechBubbleBox(props: Props) {
     bubbleContents,
     position,
     size,
+    textColor = "default",
+    backgroundColor = "default",
     isTail = true,
     isShowBubble = true,
     isDraggable = false,
@@ -42,6 +46,7 @@ export default function SpeechBubbleBox(props: Props) {
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
+
   const [isTextOverflow, setIsTextOverflow] = useState<boolean>(!checkOverflow);
   const draggableClass = isDraggable ? " draggable" : " non-draggable";
   const observeBubbleBox = useCallback(() => {
@@ -69,7 +74,7 @@ export default function SpeechBubbleBox(props: Props) {
     return () => {
       window.removeEventListener("resize", observeBubbleBox);
     };
-  }, [observeBubbleBox]);
+  }, [observeBubbleBox, size]);
 
   const handleCheckOverflow = (e: MouseEvent<HTMLParagraphElement>) => {
     if (!checkOverflow) {
@@ -81,6 +86,10 @@ export default function SpeechBubbleBox(props: Props) {
     }
     setIsTextOverflow(false);
   };
+
+  useEffect(() => {
+    setIsTextOverflow(!checkOverflow);
+  }, [checkOverflow]);
 
   return (
     <div
@@ -102,6 +111,8 @@ export default function SpeechBubbleBox(props: Props) {
           isTail={isTail}
           contents={bubbleContents}
           parentDimension={dimensions}
+          textColor={textColor}
+          backgroundColor={backgroundColor}
         />
       )}
     </div>

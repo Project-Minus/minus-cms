@@ -1,3 +1,14 @@
+$colors: (
+  orange: orange,
+  red: red,
+  lime: lime,
+  green: green,
+  blue: blue,
+  purple: purple,
+  violet: violet,
+  pink: pink,
+);
+
 .speech-bubble {
   position: absolute;
   display: inline-block;
@@ -120,4 +131,40 @@
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
   transform: translateY(-50%);
+}
+
+@each $colorname, $color in $colors {
+  .speech-bubble--text--#{$colorname} {
+    color: $color;
+  }
+}
+@each $colorname, $color in $colors {
+  .speech-bubble--background--#{$colorname} {
+    background-color: $color;
+    &.speech-bubble--top:after {
+      content: "";
+      border-top: 12px solid $color;
+    }
+    &.speech-bubble--bottom:after {
+      border-bottom: 12px solid $color;
+    }
+    &.speech-bubble--left:after {
+      border-left: 12px solid $color;
+    }
+    &.speech-bubble--right:after {
+      border-right: 12px solid $color;
+    }
+    &.speech-bubble--left-top:after {
+      border-top: 12px solid $color;
+    }
+    &.speech-bubble--right-top:after {
+      border-top: 12px solid $color;
+    }
+    &.speech-bubble--left-bottom:after {
+      border-bottom: 12px solid $color;
+    }
+    &.speech-bubble--right-bottom:after {
+      border-bottom: 12px solid $color;
+    }
+  }
 }
