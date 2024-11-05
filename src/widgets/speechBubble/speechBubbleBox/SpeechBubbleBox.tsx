@@ -1,0 +1,109 @@
+import {
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import SpeechBubble from "../speechBubble/SpeechBubble";
+import "./style.scss";
+import { TooltipPosition } from "../type";
+
+interface Props {
+  contents: ReactNode;
+  bubbleContents: ReactNode | string;
+  position?: TooltipPosition;
+  size?: "small" | "medium" | "large" | "extraLarge";
+  isTail?: boolean;
+  isShowBubble?: boolean;
+  isDraggable?: boolean;
+  checkOverflow?: boolean;
+  boxStyle?: CSSProperties;
+  boxContentStyle?: CSSProperties;
+}
+
+export default function SpeechBubbleBox(props: Props) {
+  const {
+    contents,
+    bubbleContents,
+    position,
+    size,
+    isTail = true,
+    isShowBubble = true,
+    isDraggable = false,
+    checkOverflow = false,
+    boxStyle,
+    boxContentStyle,
+  } = props;
+  const bubbleBoxRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState<{
+    width: number;
+    height: number;
+  }>({ width: 0, height: 0 });
+  const [isTextOverflow, setIsTextOverflow] = useState<boolean>(!checkOverflow);
+  const draggableClass = isDraggable ? " draggable" : " non-draggable";
+  const observeBubbleBox = useCallback(() => {
+    if (!bubbleBoxRef.current) {
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const { clientWidth, clientHeight } = entry.target;
+
+          if (entry.intersectionRatio > 0) {
+            setDimensions({ width: clientWidth, height: clientHeight });
+          }
+        }
+      });
+    });
+
+    observer.observe(bubbleBoxRef.current);
+  }, []);
+
+  useEffect(() => {
+    observeBubbleBox();
+    window.addEventListener("resize", observeBubbleBox);
+    return () => {
+      window.removeEventListener("resize", observeBubbleBox);
+    };
+  }, [observeBubbleBox]);
+
+  const handleCheckOverflow = (e: MouseEvent<HTMLParagraphElement>) => {
+    if (!checkOverflow) {
+      return;
+    }
+    if (e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
+      setIsTextOverflow(true);
+      return;
+    }
+    setIsTextOverflow(false);
+  };
+
+  return (
+    <div
+      ref={bubbleBoxRef}
+      className={`bubble-box${draggableClass}`}
+      style={boxStyle}
+    >
+      <div
+        className="bubble-box__contents"
+        style={boxContentStyle}
+        onMouseEnter={handleCheckOverflow}
+      >
+        {contents}
+      </div>
+      {isShowBubble && isTextOverflow && (
+        <SpeechBubble
+          position={position}
+          size={size}
+          isTail={isTail}
+          contents={bubbleContents}
+          parentDimension={dimensions}
+        />
+      )}
+    </div>
+  );
+}

@@ -1,15 +1,37 @@
 import { WriteArticle, ListArtcle } from "@pages/blog";
 import Columns from "@pages/columns/Columns";
+import Tooltip from "@pages/componentsPage/tooltip/Tooltip";
 import Dashboard from "@pages/dashboard/Dashboard";
 import Layout from "@pages/layout/Layout";
 import PostCategories from "@pages/settings/postCategories/PostCategories";
 import Traffics from "@pages/settings/traffics/traffics";
 
 import Tables from "@pages/tables/Tables";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Outlet,
+  RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
 import Error from "./Error";
 
+const componentRouter: RouteObject = {
+  path: "/frame",
+  element: <Outlet></Outlet>,
+  children: [
+    {
+      path: "tooltip",
+      element: <Tooltip />,
+    },
+  ],
+};
+
+export const componentRouterInPage: RouteObject = {
+  path: "component",
+  element: <Outlet></Outlet>,
+  children: [...componentRouter.children],
+};
 const mainRouter = createBrowserRouter([
   {
     path: "/",
@@ -33,12 +55,13 @@ const mainRouter = createBrowserRouter([
           },
         ],
       },
+      componentRouterInPage,
       {
-        path: "/data",
+        path: "tables",
         element: <Outlet />,
         children: [
           {
-            path: "tables",
+            path: "",
             element: <Tables />,
           },
           {
@@ -63,8 +86,9 @@ const mainRouter = createBrowserRouter([
       },
     ],
   },
+  componentRouter,
 ]);
 
-export default function MainRouter() {
+export function MainRouter() {
   return <RouterProvider router={mainRouter} fallbackElement={<Error />} />;
 }
