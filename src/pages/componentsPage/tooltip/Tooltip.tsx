@@ -17,18 +17,19 @@ export default function Tooltip() {
     "bottom",
     "right-bottom",
   ];
+
   const [textColor, setTextColor] = useState<string>("default");
   const [backgroundColor, setBackgroundColor] = useState<string>("default");
-  const [size, setSize] = useState<string>("small");
-  const [ellipsis, setEllipsis] = useState<string>("100px");
+  const [size, setSize] = useState<string>("medium");
+  const [ellipsis, setEllipsis] = useState<string>("90px");
 
   const options = useMemo(() => {
     const handleToggle = () => {
-      if (ellipsis === "100px") {
-        setEllipsis("150px");
+      if (ellipsis === "90px") {
+        setEllipsis("130px");
         return;
       }
-      setEllipsis("100px");
+      setEllipsis("90px");
     };
 
     return [
@@ -63,7 +64,7 @@ export default function Tooltip() {
         panelKey: "ellipsis",
         isShow: true,
         panelType: "switch",
-        onSwitch: ellipsis === "100px",
+        onSwitch: ellipsis === "90px",
         onChange: handleToggle,
       },
     ];
@@ -83,10 +84,9 @@ export default function Tooltip() {
                   size={size}
                   textColor={textColor}
                   backgroundColor={backgroundColor}
-                  checkOverflow={ellipsis === "100px"}
+                  checkOverflow={ellipsis === "90px"}
                   boxContentStyle={{
                     fontWeight: 500,
-                    color: "rgba(255,255,255,1)",
                   }}
                 />
               </div>

@@ -44,7 +44,6 @@ export default function Tables() {
       <Select
         value={selectedTable}
         options={dataTables}
-        placeholder="table"
         onChange={onChangeSelect}
       />
       {/* <PaginateTable rows={data} columns={currentCloumns} /> */}
