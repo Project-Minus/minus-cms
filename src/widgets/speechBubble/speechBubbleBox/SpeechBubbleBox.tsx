@@ -48,6 +48,7 @@ export default function SpeechBubbleBox(props: Props) {
   }>({ width: 0, height: 0 });
 
   const [isTextOverflow, setIsTextOverflow] = useState<boolean>(!checkOverflow);
+
   const draggableClass = isDraggable ? " draggable" : " non-draggable";
   const observeBubbleBox = useCallback(() => {
     if (!bubbleBoxRef.current) {
@@ -86,6 +87,12 @@ export default function SpeechBubbleBox(props: Props) {
     }
     setIsTextOverflow(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      observeBubbleBox();
+    }, 300);
+  }, [observeBubbleBox, isTextOverflow]);
 
   useEffect(() => {
     setIsTextOverflow(!checkOverflow);

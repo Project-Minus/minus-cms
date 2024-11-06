@@ -9,6 +9,7 @@ export interface PanelOption {
   panelKey: string;
   panelType: string;
   isShow: boolean;
+  onColor?: string;
   onSwitch?: boolean;
   onSelect?: string;
   onChange?: (value?: string | boolean | number | ChangeEvent) => void;

@@ -20,15 +20,15 @@ export default function Tooltip() {
   const [textColor, setTextColor] = useState<string>("default");
   const [backgroundColor, setBackgroundColor] = useState<string>("default");
   const [size, setSize] = useState<string>("small");
-  const [ellipsis, setEllipsis] = useState<string>("50px");
+  const [ellipsis, setEllipsis] = useState<string>("100px");
 
   const options = useMemo(() => {
     const handleToggle = () => {
-      if (ellipsis === "50px") {
-        setEllipsis("65px");
+      if (ellipsis === "100px") {
+        setEllipsis("150px");
         return;
       }
-      setEllipsis("50px");
+      setEllipsis("100px");
     };
 
     return [
@@ -36,6 +36,7 @@ export default function Tooltip() {
         panelKey: "textColor",
         isShow: true,
         panelType: "color",
+        onColor: textColor,
         onChange: (color) => {
           setTextColor(color as string);
         },
@@ -44,6 +45,7 @@ export default function Tooltip() {
         panelKey: "backgroundColor",
         isShow: true,
         panelType: "color",
+        onColor: backgroundColor,
         onChange: (color) => {
           setBackgroundColor(color as string);
         },
@@ -61,11 +63,11 @@ export default function Tooltip() {
         panelKey: "ellipsis",
         isShow: true,
         panelType: "switch",
-        onSwitch: ellipsis === "50px",
+        onSwitch: ellipsis === "100px",
         onChange: handleToggle,
       },
     ];
-  }, [size, ellipsis]);
+  }, [size, ellipsis, textColor, backgroundColor]);
 
   return (
     <ControlPanel options={options}>
@@ -81,9 +83,8 @@ export default function Tooltip() {
                   size={size}
                   textColor={textColor}
                   backgroundColor={backgroundColor}
-                  checkOverflow={ellipsis === "50px"}
+                  checkOverflow={ellipsis === "100px"}
                   boxContentStyle={{
-                    fontSize: 14,
                     fontWeight: 500,
                     color: "rgba(255,255,255,1)",
                   }}

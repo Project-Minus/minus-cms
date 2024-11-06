@@ -85,7 +85,6 @@ export default function ControlPanel(props: PanelProps) {
       <div className="controller">
         {options.map(
           ({ panelKey, isShow, panelType, onSwitch, onSelect, onChange }) => {
-            console.log(onSwitch);
             return (
               <ControlPanelOption
                 panelKey={panelKey}
