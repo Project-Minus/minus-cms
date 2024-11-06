@@ -1,0 +1,42 @@
+.controller-docs-content {
+  display: flex;
+  align-items: center;
+  height: 22.5%;
+  padding: 16px 30px;
+  border-bottom: 1px solid rgba(78, 78, 78, 0.25);
+  &.default-content {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    height: 10%;
+  }
+  .controller-name {
+    display: inline-block;
+    padding: 4px 6px;
+    width: 15%;
+    text-align: left;
+    word-break: break-all;
+    font-weight: 700;
+  }
+}
+.control-docs-name {
+  width: 15%;
+  text-align: left;
+  font-weight: 700;
+}
+.control-docs-desc {
+  width: 70%;
+  text-align: left;
+  &.default-content {
+    p {
+      font-weight: 700;
+    }
+  }
+}
+.control-docs-default {
+  width: 15%;
+  text-align: left;
+  &.default-content {
+    font-weight: 700;
+  }
+}

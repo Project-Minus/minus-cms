@@ -1,0 +1,51 @@
+.control-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.panel-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+}
+.controller {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  box-shadow: 0px -2px 5px -2px gray;
+  transition: bottom 0.4s;
+  &.flip {
+    svg {
+      transform: rotate(0deg);
+    }
+  }
+  &.non-flip {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+.controller-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0px 20px;
+  height: 40px;
+  border-bottom: 1px solid rgba(78, 78, 78, 0.4);
+  svg {
+    width: 40px;
+    padding: 0 5px;
+    transition: transform 0.4s;
+    cursor: pointer !important;
+  }
+}
+.controller-content-wrapper {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
