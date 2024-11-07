@@ -2,6 +2,7 @@ import { WriteArticle, ListArtcle } from "@pages/blog";
 import Columns from "@pages/columns/Columns";
 import Tooltip from "@pages/componentsPage/tooltip/Tooltip";
 import Dashboard from "@pages/dashboard/Dashboard";
+import Frame from "@pages/frame/Frame";
 import Layout from "@pages/layout/Layout";
 import PostCategories from "@pages/settings/postCategories/PostCategories";
 import Traffics from "@pages/settings/traffics/traffics";
@@ -18,7 +19,7 @@ import Error from "./Error";
 
 const componentRouter: RouteObject = {
   path: "/frame",
-  element: <Outlet></Outlet>,
+  element: <Frame />,
   children: [
     {
       path: "tooltip",

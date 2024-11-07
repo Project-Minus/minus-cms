@@ -9,6 +9,9 @@ export interface PanelOption {
   panelKey: string;
   panelType: string;
   isShow: boolean;
+  description?: string;
+  examples?: Array<string>;
+  defaultExample?: string;
   onColor?: string;
   onSwitch?: boolean;
   onSelect?: string;

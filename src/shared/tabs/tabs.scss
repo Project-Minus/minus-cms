@@ -1,0 +1,41 @@
+.common-tabs {
+  // position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  border-bottom: 1px solid rgba(226, 232, 236, 1);
+  font-size: 16px;
+  &__items {
+    display: flex;
+    width: 100%;
+    gap: 28px;
+  }
+  &__item {
+    position: relative;
+    cursor: pointer;
+  }
+  &__item--active {
+    font-weight: 800;
+  }
+  &__under-bar {
+    position: relative;
+    top: 16px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: rgba(243, 115, 33, 1);
+    animation: tab_bar_width 1s forwards;
+    animation-duration: 0.3s;
+  }
+}
+
+@keyframes tab_bar_width {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
