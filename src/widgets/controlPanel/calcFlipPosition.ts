@@ -1,19 +1,9 @@
-import { PanelOption } from "@shared/types/option";
-
-export const flipPosition = (
-  flipController: boolean,
-  options: Array<PanelOption>,
-) => {
-  const optionsLength = options.length;
-
+export const flipPosition = (flipController: boolean, tabKey: string) => {
   if (flipController) {
     return `calc(-50% + 40px)`;
   }
-  if (optionsLength >= 5) {
-    return "40px";
+  if (tabKey === "docs") {
+    return `calc(50%)`;
   }
-  if (optionsLength === 1) {
-    return `calc(-45% + 40px)`;
-  }
-  return `calc(-${50 - (5 + (optionsLength - 1) * (45 / 4))}% + 40px)`;
+  return "40px";
 };

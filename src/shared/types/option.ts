@@ -5,15 +5,22 @@ export interface Option {
   value: string | number;
 }
 
-export interface PanelOption {
+export interface PanelControlOption {
   panelKey: string;
   panelType: string;
   isShow: boolean;
-  description?: string;
-  examples?: Array<string>;
-  defaultExample?: string;
   onColor?: string;
   onSwitch?: boolean;
   onSelect?: string;
   onChange?: (value?: string | boolean | number | ChangeEvent) => void;
 }
+export interface PanelMainOption {
+  panelKey: string;
+  panelType: string | null;
+  isShow: boolean;
+  description?: string;
+  examples?: Array<string>;
+  defaultExample?: string;
+}
+
+export interface PanelOptions extends PanelControlOption, PanelMainOption {}
