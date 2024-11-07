@@ -1,31 +1,33 @@
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import { useGetTheme } from "@shared/hooks/useGetTheme";
 import Tabs from "@shared/tabs/Tabs";
-import { PanelOption } from "@shared/types/option";
+import { PanelControlOption, PanelMainOption } from "@shared/types/option";
 import { ReactNode, useState } from "react";
 import { flipPosition } from "../calcFlipPosition";
-import ControlTabOption from "../controlTabOptions/ControlTabOptions";
-import { DocsTabOptions } from "../docsTabOptions/DocsTabOptions";
 import "./controlPanelView.scss";
+import PanelSwitcher from "../panelSwitcher/PanelSwitcher";
 
 interface PanelProps {
   children: ReactNode;
-  controlOptions?: Array<PanelOption>;
-  docsOptions?: Array<PanelOption>;
+  controlOptions?: Array<PanelControlOption>;
+  mainOptions?: Array<PanelMainOption>;
 }
 
+let timeoutId: ReturnType<typeof setTimeout>;
 export default function ControlPanelView(props: PanelProps) {
-  const { children, controlOptions, docsOptions } = props;
+  const { children, controlOptions, mainOptions } = props;
   const [flipController, setFlipController] = useState<boolean>(true);
-  const [tabKey, setTabKey] = useState<string>("docs");
+  const [tabKey, setTabKey] = useState<string>("");
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const { textColor } = useGetTheme();
-  const defaultControlOption: PanelOption = {
+
+  const defaultControlOption: PanelControlOption = {
     panelKey: "Name",
     isShow: true,
     panelType: "default",
     onChange: () => {},
   };
-  const defaultDocsOption: PanelOption = {
+  const defaultMainOption: PanelMainOption = {
     panelKey: "Name",
     isShow: true,
     panelType: "default",
@@ -34,7 +36,7 @@ export default function ControlPanelView(props: PanelProps) {
     defaultExample: "Default",
   };
   const controlOptionsAddDefault = [defaultControlOption, ...controlOptions];
-  const docsOptionsAddDefault = [defaultDocsOption, ...docsOptions];
+  const mainOptionsAddDefault = [defaultMainOption, ...mainOptions];
   const flipClass = flipController ? "flip" : "non-flip";
   const tabItems = [
     {
@@ -42,10 +44,31 @@ export default function ControlPanelView(props: PanelProps) {
       label: "Docs",
     },
     {
+      key: "main",
+      label: "Main property",
+    },
+    {
       key: "control",
       label: "Control",
     },
   ];
+  const onChangeTabKey = (key: string) => {
+    const currentTab = tabKey;
+    const nextTab = key;
+
+    //docs 일때 transition 적용
+    if (currentTab !== "docs" && nextTab !== "docs") {
+      setIsTransitioning(false);
+      setTabKey(key);
+      return;
+    }
+    setIsTransitioning(true);
+    setTabKey(key);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      setIsTransitioning(false);
+    }, 400);
+  };
 
   return (
     <div className="control-panel">
@@ -53,7 +76,7 @@ export default function ControlPanelView(props: PanelProps) {
       <div
         className={`controller ${flipClass}`}
         style={{
-          bottom: flipPosition(flipController, controlOptionsAddDefault),
+          bottom: flipPosition(flipController, tabKey),
         }}
       >
         <div className="controller-header">
@@ -64,7 +87,7 @@ export default function ControlPanelView(props: PanelProps) {
             underbarColor={textColor}
             activeTextColor={textColor}
             defaultTextColor={textColor}
-            onChange={setTabKey}
+            onChange={onChangeTabKey}
             extraContent={
               <OpenInBrowserIcon
                 onClick={() => {
@@ -78,52 +101,12 @@ export default function ControlPanelView(props: PanelProps) {
           />
         </div>
         <div className="controller-content-wrapper">
-          {tabKey === "docs" &&
-            docsOptionsAddDefault.map(
-              ({
-                panelKey,
-                isShow,
-                panelType,
-                description,
-                examples,
-                defaultExample,
-              }) => {
-                return (
-                  <DocsTabOptions
-                    panelKey={panelKey}
-                    isShow={isShow}
-                    panelType={panelType}
-                    description={description}
-                    examples={examples}
-                    defaultExample={defaultExample}
-                  />
-                );
-              },
-            )}
-          {tabKey === "control" &&
-            controlOptionsAddDefault.map(
-              ({
-                panelKey,
-                isShow,
-                panelType,
-                onColor,
-                onSwitch,
-                onSelect,
-                onChange,
-              }) => {
-                return (
-                  <ControlTabOption
-                    panelKey={panelKey}
-                    isShow={isShow}
-                    panelType={panelType}
-                    onColor={onColor}
-                    onSwitch={onSwitch}
-                    onSelect={onSelect}
-                    onChange={onChange}
-                  />
-                );
-              },
-            )}
+          <PanelSwitcher
+            mainOptions={mainOptionsAddDefault}
+            controlOptions={controlOptionsAddDefault}
+            tabKey={tabKey}
+            isTransitioning={isTransitioning}
+          />
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
+import { PanelControlOption, PanelMainOption } from "@shared/types/option";
 import ControlPanelView from "@widgets/controlPanel/controlPanelView/ControlPanelView";
 import SpeechBubbleBox from "@widgets/speechBubble/SpeechBubbleBox/SpeechBubbleBox";
 import { TooltipPosition } from "@widgets/speechBubble/type";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import "./tooltip.scss";
 
 export default function Tooltip() {
@@ -20,20 +21,19 @@ export default function Tooltip() {
   const [textColor, setTextColor] = useState<string>("default");
   const [backgroundColor, setBackgroundColor] = useState<string>("default");
   const [size, setSize] = useState<string>("medium");
-  const [ellipsis, setEllipsis] = useState<string>("90px");
+  const [ellipsis, setEllipsis] = useState<string>("95px");
+  const handleToggle = useCallback(() => {
+    if (ellipsis === "95px") {
+      setEllipsis("130px");
+      return;
+    }
+    setEllipsis("95px");
+  }, [ellipsis]);
 
-  const controlOptions = useMemo(() => {
-    const handleToggle = () => {
-      if (ellipsis === "90px") {
-        setEllipsis("130px");
-        return;
-      }
-      setEllipsis("90px");
-    };
-
+  const controlOptions: Array<PanelControlOption> = useMemo(() => {
     return [
       {
-        panelKey: "textColor",
+        panelKey: "Color",
         isShow: true,
         panelType: "color",
         onColor: textColor,
@@ -42,7 +42,7 @@ export default function Tooltip() {
         },
       },
       {
-        panelKey: "backgroundColor",
+        panelKey: "Background",
         isShow: true,
         panelType: "color",
         onColor: backgroundColor,
@@ -51,7 +51,7 @@ export default function Tooltip() {
         },
       },
       {
-        panelKey: "size",
+        panelKey: "Size",
         isShow: true,
         panelType: "select",
         onSelect: size,
@@ -60,56 +60,79 @@ export default function Tooltip() {
         },
       },
       {
-        panelKey: "ellipsis",
+        panelKey: "Ellipsis",
         isShow: true,
         panelType: "switch",
-        onSwitch: ellipsis === "90px",
+        onSwitch: ellipsis === "95px",
         onChange: handleToggle,
       },
     ];
-  }, [size, ellipsis, textColor, backgroundColor]);
+  }, [size, ellipsis, textColor, backgroundColor, handleToggle]);
 
-  const docsOptions = [
+  const mainOptions: Array<PanelMainOption> = [
     {
       panelKey: "Color",
       isShow: true,
-      panelType: "",
-      description: "test1",
+      panelType: null,
+      description: "말풍선 속 텍스트 색을 변경할 수 있습니다",
       examples: ["string", "number"],
-      defaultExample: "90px",
+      defaultExample: "#FFFFFF",
     },
     {
       panelKey: "Background",
       isShow: true,
-      panelType: "",
-      description: "test2",
+      panelType: null,
+      description: "말풍선의 배경 색을 변경할 수 있습니다",
       examples: ["string", "boolean", "Array<string>"],
-      defaultExample: "red",
+      defaultExample: "#313131",
     },
     {
-      panelKey: "size",
+      panelKey: "Size",
       isShow: true,
-      panelType: "",
-      description: "test3",
+      panelType: null,
+      description: "말풍선의 크기를 4가지 속성을 사용하여 변경할 수 있습니다",
       examples: ['"small"', '"medium"', '"large"', '"extraLarge"'],
       defaultExample: "medium",
     },
     {
-      panelKey: "ellipsis",
+      panelKey: "Ellipsis",
       isShow: true,
-      panelType: "",
-      description: "test4",
+      panelType: null,
+      description:
+        "이 속성을 true로 설정하면, 말줄임 표시가 되어있는 요소만 말풍선이 나타납니다",
       examples: ["boolean"],
-      defaultExample: "false",
+      defaultExample: "true",
+    },
+    {
+      panelKey: "position",
+      isShow: true,
+      panelType: null,
+      description: "8가지 속성에 따라 말풍선의 위치를 변경할 수 있습니다",
+      examples: [
+        '"left-top"',
+        '"top"',
+        '"right-top"',
+        '"left"',
+        '"right"',
+        '"left-bottom"',
+        '"bottom"',
+        '"right-bottom"',
+        '"right-bottom"',
+        '"right-bottom"',
+        '"right-bottom"',
+      ],
+      defaultExample: "top",
     },
   ];
 
   return (
-    <ControlPanelView controlOptions={controlOptions} docsOptions={docsOptions}>
+    <ControlPanelView controlOptions={controlOptions} mainOptions={mainOptions}>
       <div className="tooltip-grid">
-        {gridItem.map((item) => {
+        {gridItem.map((item, index) => {
+          const key = `tooltip-grid-${index}`;
+
           return (
-            <div className="grid-item">
+            <div className="grid-item" key={key}>
               <div className="grid-item-bubble" style={{ width: ellipsis }}>
                 <SpeechBubbleBox
                   contents={item}
@@ -118,7 +141,7 @@ export default function Tooltip() {
                   size={size}
                   textColor={textColor}
                   backgroundColor={backgroundColor}
-                  checkOverflow={ellipsis === "90px"}
+                  checkOverflow={ellipsis === "95px"}
                   boxContentStyle={{
                     fontWeight: 500,
                   }}
