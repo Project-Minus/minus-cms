@@ -1,6 +1,7 @@
 import { PanelControlOption, PanelMainOption } from "@shared/types/option";
 import { ReactNode, useEffect, useRef } from "react";
 import ControlTabOption from "../controlTabOptions/ControlTabOptions";
+
 import DocsTabOptions from "../docsTabOptions/DocsTabOptions";
 import MainTabOptions from "../mainTabOptions/MainTabOptions";
 
