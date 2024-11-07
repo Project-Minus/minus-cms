@@ -17,26 +17,18 @@ let timeoutId: ReturnType<typeof setTimeout>;
 export default function ControlPanelView(props: PanelProps) {
   const { children, controlOptions, mainOptions } = props;
   const [flipController, setFlipController] = useState<boolean>(true);
-  const [tabKey, setTabKey] = useState<string>("");
+  const [tabKey, setTabKey] = useState<string>("main");
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const { textColor } = useGetTheme();
-
+  const controllerHeight = tabKey === "docs" ? "100%" : "50%";
   const defaultControlOption: PanelControlOption = {
     panelKey: "Name",
     isShow: true,
     panelType: "default",
     onChange: () => {},
   };
-  const defaultMainOption: PanelMainOption = {
-    panelKey: "Name",
-    isShow: true,
-    panelType: "default",
-    description: "Description",
-    examples: [],
-    defaultExample: "Default",
-  };
+
   const controlOptionsAddDefault = [defaultControlOption, ...controlOptions];
-  const mainOptionsAddDefault = [defaultMainOption, ...mainOptions];
   const flipClass = flipController ? "flip" : "non-flip";
   const tabItems = [
     {
@@ -76,6 +68,7 @@ export default function ControlPanelView(props: PanelProps) {
       <div
         className={`controller ${flipClass}`}
         style={{
+          height: controllerHeight,
           bottom: flipPosition(flipController, tabKey),
         }}
       >
@@ -102,7 +95,7 @@ export default function ControlPanelView(props: PanelProps) {
         </div>
         <div className="controller-content-wrapper">
           <PanelSwitcher
-            mainOptions={mainOptionsAddDefault}
+            mainOptions={mainOptions}
             controlOptions={controlOptionsAddDefault}
             tabKey={tabKey}
             isTransitioning={isTransitioning}

@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { createTheme } from "@mui/material";
 import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
 import { ReactNode } from "react";
+import logo from "../../assets/minus.png";
 
 interface ProviderProps {
   children: ReactNode;
@@ -125,8 +126,13 @@ export default function MUIProvider(props: ProviderProps) {
       theme={Theme}
       window={windows}
       branding={{
-        logo: <></>,
-        title: "Minus",
+        logo: (
+          <img
+            src={logo}
+            style={{ width: "104px", padding: 8, height: 32, margin: 4 }}
+          />
+        ),
+        title: "",
       }}
     >
       {children}

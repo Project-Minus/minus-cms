@@ -1,0 +1,57 @@
+.controller-docs {
+  margin: 40px auto 0;
+  max-width: 80%;
+  .control-main-name,
+  .control-main-desc,
+  .control-main-default {
+    font-weight: normal !important;
+    > p {
+      font-weight: normal !important;
+    }
+  }
+}
+.controller-docs-title {
+  text-align: left;
+  font-size: 44px;
+  font-weight: bold;
+}
+.controller-docs-sub-title {
+  margin-top: 80px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 20px;
+  line-height: 2.5;
+  border-bottom: 1px solid rgba(78, 78, 78, 0.4);
+}
+.controller-docs-wrapper {
+  margin: 0 auto;
+  outline: 1px solid rgba(78, 78, 78, 0.4);
+  border-radius: 5px;
+}
+.controller-docs-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(78, 78, 78, 0.4);
+  svg {
+    margin: 0 5px;
+    position: relative;
+    z-index: 100000000;
+    rotate: 180deg;
+    cursor: pointer;
+  }
+}
+.controller-docs-body {
+  position: relative;
+  padding: 30px 20px;
+}
+.bubble-box-wrapper {
+  margin: 0 auto;
+  max-width: 15%;
+}
+.show-code-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
