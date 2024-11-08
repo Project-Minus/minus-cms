@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { dataColumn } from "./constants/columns";
 
 export default function Tables() {
-  const [selectedTable, setSelectedTable] = useState<string>("");
+  const [selectedTable, setSelectedTable] = useState<string>("article");
   const { data } = useGetTable(selectedTable);
   const rowData = Array.isArray(data) ? data : [];
   const dataTables = [
@@ -42,12 +42,17 @@ export default function Tables() {
       }}
     >
       <Select
+        selectKey="data-base-table-selector"
         value={selectedTable}
         options={dataTables}
         onChange={onChangeSelect}
       />
       {/* <PaginateTable rows={data} columns={currentCloumns} /> */}
-      <PaginatedTable rows={rowData} columns={currentCloumns} />
+      <PaginatedTable
+        tableName={selectedTable}
+        rows={rowData}
+        columns={currentCloumns}
+      />
     </Container>
   );
 }
