@@ -1,9 +1,12 @@
 export const flipPosition = (flipController: boolean, tabKey: string) => {
   if (flipController) {
+    if (tabKey === "docs") {
+      return `calc(-100% + 40px)`;
+    }
     return `calc(-50% + 40px)`;
   }
   if (tabKey === "docs") {
-    return `calc(50%)`;
+    return `0px`;
   }
-  return "40px";
+  return "0px";
 };

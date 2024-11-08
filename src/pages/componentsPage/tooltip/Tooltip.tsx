@@ -1,8 +1,9 @@
-import { PanelControlOption, PanelMainOption } from "@shared/types/option";
+import { PanelControlOption } from "@shared/types/option";
 import ControlPanelView from "@widgets/controlPanel/controlPanelView/ControlPanelView";
-import SpeechBubbleBox from "@widgets/speechBubble/SpeechBubbleBox/SpeechBubbleBox";
+import SpeechBubbleBox from "@widgets/speechBubble/speechBubbleBox/SpeechBubbleBox";
 import { TooltipPosition } from "@widgets/speechBubble/type";
 import { useCallback, useMemo, useState } from "react";
+import { TOOLTIP_MAIN_OPTIONS } from "./options";
 import "./tooltip.scss";
 
 export default function Tooltip() {
@@ -69,64 +70,11 @@ export default function Tooltip() {
     ];
   }, [size, ellipsis, textColor, backgroundColor, handleToggle]);
 
-  const mainOptions: Array<PanelMainOption> = [
-    {
-      panelKey: "Color",
-      isShow: true,
-      panelType: null,
-      description: "말풍선 속 텍스트 색을 변경할 수 있습니다",
-      examples: ["string", "number"],
-      defaultExample: "#FFFFFF",
-    },
-    {
-      panelKey: "Background",
-      isShow: true,
-      panelType: null,
-      description: "말풍선의 배경 색을 변경할 수 있습니다",
-      examples: ["string", "boolean", "Array<string>"],
-      defaultExample: "#313131",
-    },
-    {
-      panelKey: "Size",
-      isShow: true,
-      panelType: null,
-      description: "말풍선의 크기를 4가지 속성을 사용하여 변경할 수 있습니다",
-      examples: ['"small"', '"medium"', '"large"', '"extraLarge"'],
-      defaultExample: "medium",
-    },
-    {
-      panelKey: "Ellipsis",
-      isShow: true,
-      panelType: null,
-      description:
-        "이 속성을 true로 설정하면, 말줄임 표시가 되어있는 요소만 말풍선이 나타납니다",
-      examples: ["boolean"],
-      defaultExample: "true",
-    },
-    {
-      panelKey: "position",
-      isShow: true,
-      panelType: null,
-      description: "8가지 속성에 따라 말풍선의 위치를 변경할 수 있습니다",
-      examples: [
-        '"left-top"',
-        '"top"',
-        '"right-top"',
-        '"left"',
-        '"right"',
-        '"left-bottom"',
-        '"bottom"',
-        '"right-bottom"',
-        '"right-bottom"',
-        '"right-bottom"',
-        '"right-bottom"',
-      ],
-      defaultExample: "top",
-    },
-  ];
-
   return (
-    <ControlPanelView controlOptions={controlOptions} mainOptions={mainOptions}>
+    <ControlPanelView
+      controlOptions={controlOptions}
+      mainOptions={TOOLTIP_MAIN_OPTIONS}
+    >
       <div className="tooltip-grid">
         {gridItem.map((item, index) => {
           const key = `tooltip-grid-${index}`;

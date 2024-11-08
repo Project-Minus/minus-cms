@@ -19,7 +19,9 @@
   width: 100%;
   height: 50%;
   box-shadow: 0px -2px 5px -2px gray;
-  transition: bottom 0.4s;
+  transition:
+    bottom 0.4s,
+    height 0.4s;
   &.flip {
     svg {
       transform: rotate(0deg);
@@ -48,7 +50,7 @@
 .controller-content-wrapper {
   @include scrollbar();
   position: relative;
-  height: 100%;
+  height: calc(100% - 40px);
   overflow-x: hidden;
   overflow-y: auto;
 }
