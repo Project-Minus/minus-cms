@@ -178,6 +178,8 @@
     background-color: rgba(179, 35, 35, 1);
   } @else if $color == "red" {
     background-color: rgba(255, 21, 0, 1);
+  } @else if $color == "yellow" {
+    background-color: rgba(255, 21, 0, 1);
   } @else if $color == "orange" {
     background-color: rgba(255, 151, 4, 1);
   } @else if $color == "lime" {
