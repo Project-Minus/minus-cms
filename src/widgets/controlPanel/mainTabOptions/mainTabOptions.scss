@@ -7,7 +7,7 @@
     position: sticky;
     z-index: 1;
     top: 0;
-    height: 10%;
+    height: 15%;
   }
 }
 .control-main-name {
@@ -16,6 +16,10 @@
   font-weight: 700;
   padding-right: 20px;
   word-break: break-all;
+  &.required::after {
+    content: "*";
+    color: red;
+  }
 }
 .control-main-desc {
   width: 70%;
@@ -37,4 +41,17 @@
   &.default-content {
     font-weight: 700;
   }
+}
+
+//properties option's style
+.properties-content {
+  border-bottom: 1px solid rgba(78, 78, 78, 0.25);
+}
+.properties-desc {
+  > p {
+    margin-bottom: 0;
+  }
+}
+.properties-name {
+  font-weight: normal;
 }

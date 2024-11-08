@@ -1,4 +1,8 @@
-import { PanelControlOption, PanelMainOption } from "@shared/types/option";
+import {
+  PanelControlOption,
+  PanelMainOption,
+  PanelStoryOption,
+} from "@shared/types/option";
 import { ReactNode, useEffect, useRef } from "react";
 import ControlTabOption from "../controlTabOptions/ControlTabOptions";
 
@@ -28,18 +32,44 @@ const Switch = (props: SwitchProps) => {
 };
 
 interface PanelSwitchProps {
+  docsTitle: string;
+  docsDescription: string;
+  docsWindowNode: ReactNode;
+  docsWindowCode: string;
+  propertiesOptions: Array<PanelMainOption>;
+  storyOptions: Array<PanelStoryOption>;
   mainOptions: Array<PanelMainOption>;
   controlOptions: Array<PanelControlOption>;
   tabKey: string;
   isTransitioning: boolean;
 }
 export default function PanelSwitcher(props: PanelSwitchProps) {
-  const { mainOptions, controlOptions, tabKey, isTransitioning } = props;
+  const {
+    docsTitle,
+    docsDescription,
+    docsWindowNode,
+    docsWindowCode,
+    propertiesOptions,
+    storyOptions,
+    mainOptions,
+    controlOptions,
+    tabKey,
+    isTransitioning,
+  } = props;
 
   return (
     <Switch
       panels={{
-        docs: <DocsTabOptions />,
+        docs: (
+          <DocsTabOptions
+            docsTitle={docsTitle}
+            docsDescription={docsDescription}
+            docsWindowNode={docsWindowNode}
+            docsWindowCode={docsWindowCode}
+            propertiesOptions={propertiesOptions}
+            storyOptions={storyOptions}
+          />
+        ),
         main: <MainTabOptions options={mainOptions} />,
         control: <ControlTabOption options={controlOptions} />,
       }}
