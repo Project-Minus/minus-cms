@@ -12,7 +12,7 @@ import {
   TOOLTIP_DOC_PROPERTIES_OPTIONS,
   TOOLTIP_MAIN_OPTIONS,
   TOOLTIP_STORY_OPTIONS,
-} from "./options";
+} from "./tooltipOptions";
 import "./tooltip.scss";
 import TooltipWindow from "./TooltipWindow";
 
@@ -34,6 +34,7 @@ export default function Tooltip() {
   const [size, setSize] = useState<string>("medium");
   const [ellipsis, setEllipsis] = useState<string>("95px");
   const [draggable, setDraggable] = useState<boolean>(false);
+  const [tail, setTail] = useState<boolean>(true);
   const handleToggle = useCallback(() => {
     if (ellipsis === "95px") {
       setEllipsis("130px");
@@ -87,8 +88,25 @@ export default function Tooltip() {
           setDraggable((prev) => !prev);
         },
       },
+      {
+        panelKey: "Tail",
+        isShow: true,
+        panelType: "switch",
+        onSwitch: tail,
+        onChange: () => {
+          setTail((prev) => !prev);
+        },
+      },
     ];
-  }, [size, ellipsis, textColor, backgroundColor, draggable, handleToggle]);
+  }, [
+    size,
+    ellipsis,
+    textColor,
+    backgroundColor,
+    draggable,
+    tail,
+    handleToggle,
+  ]);
 
   return (
     <ControlPanelView
@@ -116,6 +134,7 @@ export default function Tooltip() {
                   textColor={textColor}
                   backgroundColor={backgroundColor}
                   isDraggable={draggable}
+                  isTail={tail}
                   checkOverflow={ellipsis === "95px"}
                   boxContentStyle={{
                     fontWeight: 500,

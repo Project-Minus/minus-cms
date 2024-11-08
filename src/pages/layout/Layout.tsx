@@ -1,4 +1,4 @@
-import { DashboardLayout } from "@toolpad/core/DashboardLayout";
+import { DashboardLayout } from "@toolpad/core";
 import { Outlet } from "react-router-dom";
 import "./layout.scss";
 

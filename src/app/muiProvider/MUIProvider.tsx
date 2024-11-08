@@ -5,17 +5,17 @@ import LayersIcon from "@mui/icons-material/Layers";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { createTheme } from "@mui/material";
 import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import logo from "../../assets/minus.png";
 
 interface ProviderProps {
   children: ReactNode;
-  window?: () => Window;
+  cutomWindow?: () => Window;
 }
 
 export default function MUIProvider(props: ProviderProps) {
-  const { children, window } = props;
-  const windows = window !== undefined ? window() : undefined;
+  const { children, cutomWindow } = props;
+  const windows = cutomWindow !== undefined ? cutomWindow() : undefined;
   const componentNavigation = () => {
     const childrens = componentRouterInPage.children.map((child) => {
       return {
@@ -120,6 +120,18 @@ export default function MUIProvider(props: ProviderProps) {
     },
   });
 
+  useEffect(() => {
+    const linkElement = document.querySelector(
+      ".MuiToolbar-root .MuiBox-root a",
+    );
+
+    if (linkElement) {
+      linkElement.addEventListener("click", (event) => {
+        event.preventDefault();
+      });
+    }
+  }, []);
+
   return (
     <AppProvider
       navigation={NAVIGATION}
@@ -128,6 +140,12 @@ export default function MUIProvider(props: ProviderProps) {
       branding={{
         logo: (
           <img
+            onClick={() => {
+              if (window.location.pathname.includes("frame")) {
+                return;
+              }
+              window.location.href = "/";
+            }}
             src={logo}
             style={{ width: "104px", padding: 8, height: 32, margin: 4 }}
           />

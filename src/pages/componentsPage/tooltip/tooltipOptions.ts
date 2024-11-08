@@ -1,14 +1,6 @@
+import { defaultMainOption } from "@shared/constants/defaultOption";
 import { PanelMainOption, PanelStoryOption } from "@shared/types/option";
 import { TOOLTIP_CALC_POSITION_CODE, TOOLTIP_OBSERVE_LOGIC } from "./code";
-
-export const defaultMainOption: PanelMainOption = {
-  panelKey: "Name",
-  isShow: true,
-  panelType: "default",
-  description: "Description",
-  examples: [],
-  defaultExample: "Default",
-};
 
 export const TOOLTIP_DOC_PROPERTIES_OPTIONS: Array<PanelMainOption> = [
   {
@@ -163,6 +155,23 @@ export const TOOLTIP_MAIN_OPTIONS: Array<PanelMainOption> = [
       '"right-bottom"',
     ],
     defaultExample: "top",
+  },
+  {
+    panelKey: "Draggable",
+    isShow: true,
+    panelType: null,
+    description:
+      "이 속성을 true 설정하면, 말풍선 속 내용을 drag 할 수 있습니다",
+    examples: ["boolean"],
+    defaultExample: "false",
+  },
+  {
+    panelKey: "Tail",
+    isShow: true,
+    panelType: null,
+    description: "이 속성을 false로 설정하면, 말풍선 꼬리가 표출되지 않습니다",
+    examples: ["boolean"],
+    defaultExample: "true",
   },
 ];
 
