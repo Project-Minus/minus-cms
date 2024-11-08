@@ -3,8 +3,18 @@ import ControlPanelView from "@widgets/controlPanel/controlPanelView/ControlPane
 import SpeechBubbleBox from "@widgets/speechBubble/speechBubbleBox/SpeechBubbleBox";
 import { TooltipPosition } from "@widgets/speechBubble/type";
 import { useCallback, useMemo, useState } from "react";
-import { TOOLTIP_MAIN_OPTIONS } from "./options";
+import {
+  TOOLTIP_DOCS_DESCRIPTION,
+  TOOLTIP_DOCS_TITLE,
+  TOOLTIP_WINDOW_CODE,
+} from "./code";
+import {
+  TOOLTIP_DOC_PROPERTIES_OPTIONS,
+  TOOLTIP_MAIN_OPTIONS,
+  TOOLTIP_STORY_OPTIONS,
+} from "./options";
 import "./tooltip.scss";
+import TooltipWindow from "./TooltipWindow";
 
 export default function Tooltip() {
   const gridItem: Array<TooltipPosition> = [
@@ -23,6 +33,7 @@ export default function Tooltip() {
   const [backgroundColor, setBackgroundColor] = useState<string>("default");
   const [size, setSize] = useState<string>("medium");
   const [ellipsis, setEllipsis] = useState<string>("95px");
+  const [draggable, setDraggable] = useState<boolean>(false);
   const handleToggle = useCallback(() => {
     if (ellipsis === "95px") {
       setEllipsis("130px");
@@ -67,11 +78,26 @@ export default function Tooltip() {
         onSwitch: ellipsis === "95px",
         onChange: handleToggle,
       },
+      {
+        panelKey: "Draggable",
+        isShow: true,
+        panelType: "switch",
+        onSwitch: draggable,
+        onChange: () => {
+          setDraggable((prev) => !prev);
+        },
+      },
     ];
-  }, [size, ellipsis, textColor, backgroundColor, handleToggle]);
+  }, [size, ellipsis, textColor, backgroundColor, draggable, handleToggle]);
 
   return (
     <ControlPanelView
+      docsTitle={TOOLTIP_DOCS_TITLE}
+      docsDescription={TOOLTIP_DOCS_DESCRIPTION}
+      docsWindowNode={<TooltipWindow />}
+      docsWindowCode={TOOLTIP_WINDOW_CODE}
+      propertiesOptions={TOOLTIP_DOC_PROPERTIES_OPTIONS}
+      storyOptions={TOOLTIP_STORY_OPTIONS}
       controlOptions={controlOptions}
       mainOptions={TOOLTIP_MAIN_OPTIONS}
     >
@@ -89,6 +115,7 @@ export default function Tooltip() {
                   size={size}
                   textColor={textColor}
                   backgroundColor={backgroundColor}
+                  isDraggable={draggable}
                   checkOverflow={ellipsis === "95px"}
                   boxContentStyle={{
                     fontWeight: 500,
