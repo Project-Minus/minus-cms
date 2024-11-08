@@ -9,6 +9,7 @@ export interface PanelControlOption {
   panelKey: string;
   panelType: string;
   isShow: boolean;
+  required?: boolean;
   onColor?: string;
   onSwitch?: boolean;
   onSelect?: string;
@@ -18,9 +19,16 @@ export interface PanelMainOption {
   panelKey: string;
   panelType: string | null;
   isShow: boolean;
+  required?: boolean;
   description?: string;
   examples?: Array<string>;
   defaultExample?: string;
+}
+
+export interface PanelStoryOption {
+  storyCode: string;
+  storyDesc?: string;
+  storyLanguage?: string;
 }
 
 export interface PanelOptions extends PanelControlOption, PanelMainOption {}
