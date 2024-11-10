@@ -115,10 +115,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 interface EnhancedTableToolbarProps {
+  tableName: string;
   numSelected: number;
 }
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { tableName, numSelected } = props;
 
   return (
     <Toolbar
@@ -152,7 +153,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {tableName}
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -173,11 +174,12 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 interface Props {
+  tableName: string;
   rows: Array<Database>;
   columns: Array<HeadCell>;
 }
 export default function PaginatedTable(props: Props) {
-  const { rows, columns } = props;
+  const { tableName, rows, columns } = props;
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<string>("id");
@@ -250,7 +252,10 @@ export default function PaginatedTable(props: Props) {
   return (
     <Box sx={{ width: "100%", height: "80%" }}>
       <Paper sx={{ width: "100%", height: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          tableName={tableName}
+          numSelected={selected.length}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750, height: "100%" }}
