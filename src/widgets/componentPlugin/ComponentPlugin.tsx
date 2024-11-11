@@ -55,6 +55,7 @@ export default function componentPlugin(): PluginInfo {
           if (targetComponent) {
             return {
               type: "html",
+              // TODO : url 변경, 크기 변경
               content: `<div class="component-preview" id="${lowerComponentName}-preview"><iframe src="http://localhost:5173/frame/${lowerComponentName}" width="100%" height="200px"></iframe></div>`,
             };
           }
