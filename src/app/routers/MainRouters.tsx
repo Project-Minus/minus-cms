@@ -17,7 +17,7 @@ import {
 
 import Error from "./Error";
 
-const componentRouter: RouteObject = {
+export const componentRouter: RouteObject = {
   path: "/frame",
   element: <Frame />,
   children: [
