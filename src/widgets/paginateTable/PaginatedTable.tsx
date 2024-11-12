@@ -1,3 +1,5 @@
+import { queryClient } from "@App";
+import { deleteRows } from "@app/supabase/init";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Box from "@mui/material/Box";
@@ -117,9 +119,10 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 interface EnhancedTableToolbarProps {
   tableName: string;
   numSelected: number;
+  handleDelete: () => void;
 }
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { tableName, numSelected } = props;
+  const { tableName, numSelected, handleDelete } = props;
 
   return (
     <Toolbar
@@ -159,7 +162,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon />
+            <DeleteIcon onClick={handleDelete} />
           </IconButton>
         </Tooltip>
       ) : (
@@ -225,6 +228,14 @@ export default function PaginatedTable(props: Props) {
     setSelected(newSelected);
   };
 
+  const handleDelete = () => {
+    deleteRows(tableName, "id", selected)
+      .then(() => {
+        queryClient.invalidateQueries({ queryKey: ["table", tableName] });
+      })
+      .catch(console.error);
+  };
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -255,6 +266,7 @@ export default function PaginatedTable(props: Props) {
         <EnhancedTableToolbar
           tableName={tableName}
           numSelected={selected.length}
+          handleDelete={handleDelete}
         />
         <TableContainer>
           <Table

@@ -103,7 +103,8 @@ export const setRows = async (
 
 //delete
 
-export const deleteRows = async (
+//단일 삭제
+export const deleteRow = async (
   tableName: string,
   columnName: string,
   columnValue: unknown,
@@ -112,6 +113,20 @@ export const deleteRows = async (
     .from(tableName)
     .delete()
     .eq(columnName, columnValue);
+
+  return { data, error };
+};
+
+//복수 삭제
+export const deleteRows = async (
+  tableName: string,
+  columnName: string,
+  columnValue: Array<unknown>,
+) => {
+  const { data, error } = await supabase
+    .from(tableName)
+    .delete()
+    .in(columnName, columnValue as Array<string>);
 
   return { data, error };
 };
