@@ -27,6 +27,7 @@ export const getPaginatedTable = async (
 
 //filter
 
+//원하는 value 와 동일한 값을 가진 column 찾기
 export const filterEqualTable = async (
   tableName: string,
   columnName: string,
@@ -40,6 +41,8 @@ export const filterEqualTable = async (
   return { data, error };
 };
 
+//원하는 value를 포함한 값을 가진 column 찾기
+//ex) 'click' => 'onClick (O) , 검색과 같은 기능
 export const filterSearchTable = async (
   tableName: string,
   columnName: string,
@@ -53,6 +56,8 @@ export const filterSearchTable = async (
   return { data, error };
 };
 
+//여러개의 값을 보내고 그중에 포함되는지 검색
+// ex) 'click' => ['click','drag'] (O)
 export const filterContainTable = async (
   tableName: string,
   columnName: string,
@@ -65,6 +70,10 @@ export const filterContainTable = async (
 
   return { data, error };
 };
+
+//column값이 array일때 포함여부 찾기
+//ex) ['click'] => ['click','drag'] (O)
+//위 메소드와 다른점은 이 부분은 data의 값이 array일 때 사용하는 메소드
 export const filterContainArrayTable = async (
   tableName: string,
   columnName: string,
