@@ -309,6 +309,10 @@ export default function PaginatedTable(props: Props) {
                       />
                     </TableCell>
                     {defferdColumns.map((column) => {
+                      const convertRow = Array.isArray(row[column.id])
+                        ? row[column.id].join(", ")
+                        : row[column.id];
+
                       if (column.id === "id") {
                         return (
                           <TableCell
@@ -321,9 +325,7 @@ export default function PaginatedTable(props: Props) {
                           </TableCell>
                         );
                       }
-                      return (
-                        <TableCell padding="none">{row[column.id]}</TableCell>
-                      );
+                      return <TableCell padding="none">{convertRow}</TableCell>;
                     })}
                   </TableRow>
                 );
