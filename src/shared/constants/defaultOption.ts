@@ -1,4 +1,8 @@
-import { PanelControlOption, PanelMainOption } from "@shared/types/option";
+import {
+  PanelControlOption,
+  PanelMainOption,
+  WriteArticleOptions,
+} from "@shared/types/option";
 
 export const defaultControlOption: PanelControlOption = {
   panelKey: "Name",
@@ -14,3 +18,16 @@ export const defaultMainOption: PanelMainOption = {
   examples: [],
   defaultExample: "Default",
 };
+
+export const defaultWriteArticleOptions: WriteArticleOptions[] = [
+  { label: "App", value: "App" },
+  // Ios && Android
+  { label: "Front", value: "Front" },
+  // Css & JavaScript & TypeScript & React & NextJS
+  { label: "Back", value: "Back" },
+  // DB & Node & Next
+  { label: "Infra", value: "Infra" },
+  // Aws & Vercel ...
+];
+
+export const defaultWriteArticleSubOptions = {};
