@@ -20,6 +20,12 @@ export const dataColumn: { [key: string]: Array<HeadCell> } = {
       numeric: false,
       disablePadding: true,
     },
+    {
+      id: "category",
+      label: "Category",
+      numeric: false,
+      disablePadding: true,
+    },
   ],
   category: [
     { id: "id", label: "ID", numeric: false, disablePadding: true },
@@ -27,6 +33,12 @@ export const dataColumn: { [key: string]: Array<HeadCell> } = {
     {
       id: "description",
       label: "Description",
+      numeric: false,
+      disablePadding: true,
+    },
+    {
+      id: "sub_category",
+      label: "Sub Category",
       numeric: false,
       disablePadding: true,
     },
