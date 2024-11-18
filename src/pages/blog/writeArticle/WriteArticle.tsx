@@ -42,6 +42,9 @@ export const WriteArticle = () => {
       >
         <TextField
           required
+          inputProps={{
+            maxLength: 44,
+          }}
           id="outlined-required"
           label="Title"
           defaultValue="Hello World"
@@ -55,17 +58,13 @@ export const WriteArticle = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DatePicker", "DatePicker"]}>
             <DatePicker
+              format="YYYY-MM-DD"
               label="Select Day"
               showDaysOutsideCurrentMonth
               value={currentDate}
               onChange={(newDate) => setCurrentDate(newDate)}
               sx={{
                 maxWidth: 150,
-                // height: 64,
-                " .MuiStack-root": {
-                  background: "red",
-                  // height: 64,
-                },
               }}
             />
           </DemoContainer>
