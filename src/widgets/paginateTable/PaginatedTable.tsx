@@ -1,3 +1,5 @@
+import { queryClient } from "@App";
+import { deleteRows } from "@app/supabase/init";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Box from "@mui/material/Box";
@@ -115,10 +117,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 interface EnhancedTableToolbarProps {
+  tableName: string;
   numSelected: number;
+  handleDelete: () => void;
 }
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { tableName, numSelected, handleDelete } = props;
 
   return (
     <Toolbar
@@ -152,13 +156,13 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {tableName}
         </Typography>
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon />
+            <DeleteIcon onClick={handleDelete} />
           </IconButton>
         </Tooltip>
       ) : (
@@ -173,11 +177,12 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 interface Props {
+  tableName: string;
   rows: Array<Database>;
   columns: Array<HeadCell>;
 }
 export default function PaginatedTable(props: Props) {
-  const { rows, columns } = props;
+  const { tableName, rows, columns } = props;
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<string>("id");
@@ -223,6 +228,14 @@ export default function PaginatedTable(props: Props) {
     setSelected(newSelected);
   };
 
+  const handleDelete = () => {
+    deleteRows(tableName, "id", selected)
+      .then(() => {
+        queryClient.invalidateQueries({ queryKey: ["table", tableName] });
+      })
+      .catch(console.error);
+  };
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -250,7 +263,11 @@ export default function PaginatedTable(props: Props) {
   return (
     <Box sx={{ width: "100%", height: "80%" }}>
       <Paper sx={{ width: "100%", height: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          tableName={tableName}
+          numSelected={selected.length}
+          handleDelete={handleDelete}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750, height: "100%" }}
@@ -292,6 +309,10 @@ export default function PaginatedTable(props: Props) {
                       />
                     </TableCell>
                     {defferdColumns.map((column) => {
+                      const convertRow = Array.isArray(row[column.id])
+                        ? row[column.id].join(", ")
+                        : row[column.id];
+
                       if (column.id === "id") {
                         return (
                           <TableCell
@@ -304,9 +325,7 @@ export default function PaginatedTable(props: Props) {
                           </TableCell>
                         );
                       }
-                      return (
-                        <TableCell padding="none">{row[column.id]}</TableCell>
-                      );
+                      return <TableCell padding="none">{convertRow}</TableCell>;
                     })}
                   </TableRow>
                 );

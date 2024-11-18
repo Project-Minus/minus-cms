@@ -1,7 +1,11 @@
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import { useGetTheme } from "@shared/hooks/useGetTheme";
 import Tabs from "@shared/tabs/Tabs";
-import { PanelControlOption, PanelMainOption } from "@shared/types/option";
+import {
+  PanelControlOption,
+  PanelMainOption,
+  PanelStoryOption,
+} from "@shared/types/option";
 import { ReactNode, useState } from "react";
 import { flipPosition } from "../calcFlipPosition";
 import "./controlPanelView.scss";
@@ -9,14 +13,30 @@ import PanelSwitcher from "../panelSwitcher/PanelSwitcher";
 
 interface PanelProps {
   children: ReactNode;
+  docsTitle: string;
+  docsDescription: string;
+  docsWindowNode: ReactNode;
+  docsWindowCode: string;
+  propertiesOptions: Array<PanelMainOption>;
+  storyOptions: Array<PanelStoryOption>;
   controlOptions?: Array<PanelControlOption>;
   mainOptions?: Array<PanelMainOption>;
 }
 
 let timeoutId: ReturnType<typeof setTimeout>;
 export default function ControlPanelView(props: PanelProps) {
-  const { children, controlOptions, mainOptions } = props;
-  const [flipController, setFlipController] = useState<boolean>(true);
+  const {
+    children,
+    docsTitle,
+    docsDescription,
+    docsWindowNode,
+    docsWindowCode,
+    propertiesOptions,
+    storyOptions,
+    controlOptions,
+    mainOptions,
+  } = props;
+  const [flipController, setFlipController] = useState<boolean>(false);
   const [tabKey, setTabKey] = useState<string>("main");
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const { textColor } = useGetTheme();
@@ -50,10 +70,12 @@ export default function ControlPanelView(props: PanelProps) {
 
     //docs 일때 transition 적용
     if (currentTab !== "docs" && nextTab !== "docs") {
+      setFlipController(false);
       setIsTransitioning(false);
       setTabKey(key);
       return;
     }
+    setFlipController(false);
     setIsTransitioning(true);
     setTabKey(key);
     clearTimeout(timeoutId);
@@ -95,6 +117,12 @@ export default function ControlPanelView(props: PanelProps) {
         </div>
         <div className="controller-content-wrapper">
           <PanelSwitcher
+            docsTitle={docsTitle}
+            docsDescription={docsDescription}
+            docsWindowNode={docsWindowNode}
+            docsWindowCode={docsWindowCode}
+            propertiesOptions={propertiesOptions}
+            storyOptions={storyOptions}
             mainOptions={mainOptions}
             controlOptions={controlOptionsAddDefault}
             tabKey={tabKey}

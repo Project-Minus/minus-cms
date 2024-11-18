@@ -1,30 +1,8 @@
-import { PanelMainOption } from "@shared/types/option";
+import { defaultMainOption } from "@shared/constants/defaultOption";
+import { PanelMainOption, PanelStoryOption } from "@shared/types/option";
+import { TOOLTIP_CALC_POSITION_CODE, TOOLTIP_OBSERVE_LOGIC } from "./code";
 
-export const TOOLTIP_CODE = `
-<div className="bubble-box-wrapper">
-  <SpeechBubbleBox
-    contents="It's tooltip!"
-    bubbleContents="It's tooltip in speechBubble!"
-    size={"medium"}
-    textColor="red"
-    backgroundColor="blue"
-    checkOverflow={false}
-    boxContentStyle={{
-      fontWeight: 500,
-    }}
-  />
-</div>
-`;
-export const defaultMainOption: PanelMainOption = {
-  panelKey: "Name",
-  isShow: true,
-  panelType: "default",
-  description: "Description",
-  examples: [],
-  defaultExample: "Default",
-};
-
-export const TOOLTIP_DOC_OPTIONS: Array<PanelMainOption> = [
+export const TOOLTIP_DOC_PROPERTIES_OPTIONS: Array<PanelMainOption> = [
   {
     panelKey: "Name",
     isShow: true,
@@ -36,6 +14,7 @@ export const TOOLTIP_DOC_OPTIONS: Array<PanelMainOption> = [
   {
     panelKey: "contents",
     isShow: true,
+    required: true,
     panelType: "default",
     description: "hover 이벤트가 일어날 요소를 지정합니다",
     examples: [],
@@ -44,6 +23,7 @@ export const TOOLTIP_DOC_OPTIONS: Array<PanelMainOption> = [
   {
     panelKey: "bubbleContents",
     isShow: true,
+    required: true,
     panelType: "default",
     description: "말풍선 속에 표출될 내용을 지정합니다",
     examples: [],
@@ -65,7 +45,6 @@ export const TOOLTIP_DOC_OPTIONS: Array<PanelMainOption> = [
     examples: [],
     defaultExample: "#FFFFFF",
   },
-
   {
     panelKey: "backgroundColor",
     isShow: true,
@@ -176,5 +155,36 @@ export const TOOLTIP_MAIN_OPTIONS: Array<PanelMainOption> = [
       '"right-bottom"',
     ],
     defaultExample: "top",
+  },
+  {
+    panelKey: "Draggable",
+    isShow: true,
+    panelType: null,
+    description:
+      "이 속성을 true 설정하면, 말풍선 속 내용을 drag 할 수 있습니다",
+    examples: ["boolean"],
+    defaultExample: "false",
+  },
+  {
+    panelKey: "Tail",
+    isShow: true,
+    panelType: null,
+    description: "이 속성을 false로 설정하면, 말풍선 꼬리가 표출되지 않습니다",
+    examples: ["boolean"],
+    defaultExample: "true",
+  },
+];
+
+export const TOOLTIP_STORY_OPTIONS: Array<PanelStoryOption> = [
+  {
+    storyCode: TOOLTIP_CALC_POSITION_CODE,
+    storyDesc: "요소 크기에 따른 위치 계산 로직",
+    storyLanguage: "javascript",
+  },
+  {
+    storyCode: TOOLTIP_OBSERVE_LOGIC,
+    storyDesc:
+      "resize, 크기 변경, reRender 등 새로 그려지는 요소 크기 확인 로직",
+    storyLanguage: "javascript",
   },
 ];

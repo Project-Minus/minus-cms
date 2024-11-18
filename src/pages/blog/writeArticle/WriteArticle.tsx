@@ -81,7 +81,7 @@ export const WriteArticle = () => {
           height="600px"
           initialEditType="markdown"
           useCommandShortcut={true}
-        ></Editor>
+        />
       </div>
     </Box>
   );

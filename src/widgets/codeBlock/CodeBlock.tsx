@@ -3,11 +3,11 @@ import "./codeBlock.scss";
 
 interface Props {
   text: string;
-  language: string;
-  showLineNumbers: boolean;
+  language?: string;
+  showLineNumbers?: boolean;
 }
-export default function CodeView(props: Props) {
-  const { text, language, showLineNumbers } = props;
+export default function CodeBlock(props: Props) {
+  const { text, language = "jsx", showLineNumbers = true } = props;
 
   return (
     <div className="code-view">

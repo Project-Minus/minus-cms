@@ -11,6 +11,7 @@ export type Color =
   | "blue"
   | "deepBlue"
   | "purple"
+  | "yellow"
   | "violet"
   | "lightPurple"
   | "pink";
@@ -24,4 +25,5 @@ export const colors: Array<Color> = [
   "purple",
   "violet",
   "pink",
+  "yellow",
 ];

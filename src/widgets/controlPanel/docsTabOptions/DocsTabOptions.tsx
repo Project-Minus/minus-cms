@@ -1,18 +1,32 @@
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
-import {
-  TOOLTIP_CODE,
-  TOOLTIP_DOC_OPTIONS,
-} from "@pages/componentsPage/tooltip/options";
-import { useGetTheme } from "@shared/hooks/useGetTheme";
-import CodeBlock from "@widgets/codeBlock/CodeBlock";
-import SpeechBubbleBox from "@widgets/speechBubble/speechBubbleBox/SpeechBubbleBox";
-import { useState } from "react";
-import "./docsTabOptions.scss";
-import MainTabOptions from "../mainTabOptions/MainTabOptions";
 
-export default function DocsTabOptions() {
+import { useGetTheme } from "@shared/hooks/useGetTheme";
+import { PanelMainOption, PanelStoryOption } from "@shared/types/option";
+import CodeBlock from "@widgets/codeBlock/CodeBlock";
+import { ReactNode, useState } from "react";
+import PropertiesOptions from "../mainTabOptions/PropertiesOptions";
+import StoryOptions from "../storyOptions/StoryOptions";
+import "./docsTabOptions.scss";
+
+interface Props {
+  docsTitle: string;
+  docsDescription: string;
+  docsWindowNode: ReactNode;
+  docsWindowCode: string;
+  propertiesOptions: Array<PanelMainOption>;
+  storyOptions: Array<PanelStoryOption>;
+}
+export default function DocsTabOptions(props: Props) {
+  const {
+    docsTitle,
+    docsDescription,
+    docsWindowNode,
+    docsWindowCode,
+    propertiesOptions,
+    storyOptions,
+  } = props;
   const { themeColorStyle } = useGetTheme();
   const [bodyScale, setBodyScale] = useState<number>(1);
   const [showCode, setShowCode] = useState<boolean>(false);
@@ -39,14 +53,12 @@ export default function DocsTabOptions() {
 
   return (
     <div className="controller-docs" style={themeColorStyle}>
-      <h2 className="controller-docs-title">SpeechBubble(Tooltip)</h2>
+      <h2 className="controller-docs-title">{docsTitle}</h2>
       <p
         className="controller-docs-sub-title"
         style={{ marginTop: 20, lineHeight: 1.6 }}
       >
-        rendering 직후에는 보이지 않다가 특정 요소에 hover 이벤트가 발생하면
-        출력되는 요소로, 부모 요소의 크기를 계산하여 반영한다. 정해진 property를
-        통해 사용자가 직접 커스텀 할 수 있다.
+        {docsDescription}
       </p>
       <div className="controller-docs-wrapper">
         <div className="controller-docs-header">
@@ -74,56 +86,7 @@ export default function DocsTabOptions() {
             className="controller-docs-scalebox"
             style={{ transform: `scale(${bodyScale})` }}
           >
-            <div className="bubble-box-wrapper">
-              <SpeechBubbleBox
-                contents="It's tooltip!"
-                bubbleContents="It's tooltip in speechBubble!"
-                size={"medium"}
-                checkOverflow={false}
-                boxContentStyle={{
-                  fontWeight: 500,
-                }}
-              />
-            </div>
-            <div className="bubble-box-wrapper">
-              <SpeechBubbleBox
-                contents="It's tooltip!"
-                bubbleContents="It's tooltip in speechBubble!"
-                size={"medium"}
-                textColor="red"
-                backgroundColor="blue"
-                checkOverflow={false}
-                boxContentStyle={{
-                  fontWeight: 500,
-                }}
-              />
-            </div>
-            <div className="bubble-box-wrapper">
-              <SpeechBubbleBox
-                contents="It's tooltip!"
-                bubbleContents="It's tooltip in speechBubble!"
-                size={"medium"}
-                textColor="orange"
-                backgroundColor="green"
-                checkOverflow={false}
-                boxContentStyle={{
-                  fontWeight: 500,
-                }}
-              />
-            </div>
-            <div className="bubble-box-wrapper">
-              <SpeechBubbleBox
-                contents="It's tooltip!"
-                bubbleContents="It's tooltip in speechBubble!"
-                size={"medium"}
-                textColor="purple"
-                backgroundColor="yellow"
-                checkOverflow={false}
-                boxContentStyle={{
-                  fontWeight: 500,
-                }}
-              />
-            </div>
+            {docsWindowNode}
           </div>
           <button className="show-code-btn" onClick={changeShowCode}>
             {showCodeText}
@@ -131,15 +94,29 @@ export default function DocsTabOptions() {
         </div>
         {showCode && (
           <CodeBlock
-            text={TOOLTIP_CODE}
+            text={docsWindowCode}
             language={"jsx"}
             showLineNumbers={true}
           />
         )}
       </div>
-      <div className="controller-docs-sub-title">Property</div>
-      <MainTabOptions options={TOOLTIP_DOC_OPTIONS}></MainTabOptions>
+      <div className="controller-docs-sub-title">
+        Property( <span style={{ color: "red" }}>*</span> is required property )
+      </div>
+      <PropertiesOptions options={propertiesOptions} />
       <div className="controller-docs-sub-title">Stories</div>
+      {storyOptions?.length > 0 &&
+        storyOptions.map((story) => {
+          const { storyCode, storyDesc, storyLanguage } = story;
+
+          return (
+            <StoryOptions
+              text={storyCode}
+              description={storyDesc}
+              language={storyLanguage}
+            />
+          );
+        })}
     </div>
   );
 }

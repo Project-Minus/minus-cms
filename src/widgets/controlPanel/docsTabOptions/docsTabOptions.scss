@@ -1,14 +1,7 @@
 .controller-docs {
-  margin: 40px auto 0;
-  max-width: 70%;
-  .control-main-name,
-  .control-main-desc,
-  .control-main-default {
-    font-weight: normal !important;
-    > p {
-      font-weight: normal !important;
-    }
-  }
+  margin: 0 auto;
+  max-width: 60%;
+  padding-block: 80px;
 }
 .controller-docs-title {
   text-align: left;
@@ -21,7 +14,6 @@
   text-align: left;
   font-size: 20px;
   line-height: 2.5;
-  border-bottom: 1px solid rgba(78, 78, 78, 0.4);
 }
 .controller-docs-wrapper {
   margin: 0 auto;
@@ -45,10 +37,6 @@
 .controller-docs-body {
   position: relative;
   padding: 30px 20px;
-}
-.bubble-box-wrapper {
-  margin: 0 auto;
-  max-width: 15%;
 }
 .show-code-btn {
   position: absolute;

@@ -12,13 +12,16 @@ export default function PaginateTable(props: Props) {
   const { rows, columns } = props;
 
   return (
-    <Paper sx={{ height: "100%", width: "100%" }}>
+    <Paper sx={{ height: "100%", width: "95%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{
+          border: 0,
+          width: "100%",
+        }}
       />
     </Paper>
   );
