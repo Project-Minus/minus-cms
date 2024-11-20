@@ -32,3 +32,8 @@ export interface PanelStoryOption {
 }
 
 export interface PanelOptions extends PanelControlOption, PanelMainOption {}
+
+export interface WriteArticleOptions {
+  label: string;
+  value: string;
+}
