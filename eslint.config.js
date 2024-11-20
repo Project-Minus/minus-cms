@@ -36,6 +36,7 @@ export default [
 
       // Custom rules
       "prettier/prettier": ["error", { endOfLine: "auto" }],
+      "padding-line-between-statements": "off", // 규칙 비활성화
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
@@ -45,7 +46,7 @@ export default [
       "prefer-arrow-callback": "off",
       curly: "error",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars":  "error",
+      "@typescript-eslint/no-unused-vars": "error",
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
         "warn",
@@ -91,11 +92,6 @@ export default [
       "import/newline-after-import": "error",
       "import/prefer-default-export": "off",
       "import/no-useless-path-segments": ["error", { noUselessIndex: true }],
-      "padding-line-between-statements": [
-        "error",
-        { blankLine: "always", prev: "const", next: "*" },
-        { blankLine: "any", prev: "const", next: "const" },
-      ],
     },
   },
 ];
