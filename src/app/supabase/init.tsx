@@ -1,3 +1,4 @@
+import { Database } from "@shared/types/tableType";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
@@ -88,7 +89,7 @@ export const filterContainArrayTable = async (
 };
 
 //post
-
+//data 추가 메서드
 export const setRows = async (
   tableName: string,
   insertValue: Array<{ [key: string]: unknown }>,
@@ -96,6 +97,17 @@ export const setRows = async (
   const { data, error } = await supabase
     .from(tableName)
     .insert(insertValue)
+    .select();
+
+  return { data, error };
+};
+
+//put
+export const updateRow = async (tableName: string, updateValue: Database) => {
+  const { data, error } = await supabase
+    .from(tableName)
+    .update(updateValue)
+    .eq("id", updateValue.id)
     .select();
 
   return { data, error };
