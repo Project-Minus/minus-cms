@@ -30,6 +30,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -180,16 +181,18 @@ interface Props {
   tableName: string;
   rows: Array<Database>;
   columns: Array<HeadCell>;
+  selected: Array<string>;
+  setSelected: (values: Array<string>) => void;
 }
 export default function PaginatedTable(props: Props) {
-  const { tableName, rows, columns } = props;
+  const { tableName, rows, columns, selected, setSelected } = props;
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<string>("id");
-  const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const navigate = useNavigate();
 
   const handleRequestSort = (event: MouseEvent<unknown>, property: string) => {
     const isAsc = orderBy === property && order === "asc";
@@ -208,8 +211,13 @@ export default function PaginatedTable(props: Props) {
     setSelected([]);
   };
 
+  const handleClickId = (e: MouseEvent, id: string) => {
+    e.preventDefault();
+    navigate(`columns/${tableName}/${id}`);
+  };
+
   const handleClick = (event: MouseEvent<unknown>, id: string) => {
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selected?.indexOf(id);
 
     let newSelected: string[] = [];
 
@@ -265,7 +273,7 @@ export default function PaginatedTable(props: Props) {
       <Paper sx={{ width: "100%", height: "100%", mb: 2 }}>
         <EnhancedTableToolbar
           tableName={tableName}
-          numSelected={selected.length}
+          numSelected={selected?.length}
           handleDelete={handleDelete}
         />
         <TableContainer>
@@ -276,7 +284,7 @@ export default function PaginatedTable(props: Props) {
           >
             <EnhancedTableHead
               columns={defferdColumns}
-              numSelected={selected.length}
+              numSelected={selected?.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -285,13 +293,12 @@ export default function PaginatedTable(props: Props) {
             />
             <TableBody>
               {defferdRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.id);
+                const isItemSelected = selected?.includes(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -301,6 +308,7 @@ export default function PaginatedTable(props: Props) {
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
+                        onClick={(event) => handleClick(event, row.id)}
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
@@ -320,6 +328,9 @@ export default function PaginatedTable(props: Props) {
                             id={labelId}
                             scope="row"
                             padding="none"
+                            onClick={(e) => {
+                              handleClickId(e, row.id);
+                            }}
                           >
                             {row[column.id]}
                           </TableCell>

@@ -7,6 +7,7 @@ import { dataColumn } from "./constants/columns";
 
 export default function Tables() {
   const [selectedTable, setSelectedTable] = useState<string>("article");
+  const [selectedRow, setSelectedRow] = useState<string[]>([]);
   const { data } = useGetTable(selectedTable);
   const rowData = Array.isArray(data) ? data : [];
   const dataTables = [
@@ -17,6 +18,11 @@ export default function Tables() {
 
   const onChangeSelect = (value: string) => {
     setSelectedTable(value);
+    setSelectedRow([]);
+  };
+
+  const handleSelectRow = (values: Array<string>) => {
+    setSelectedRow(values);
   };
 
   const currentCloumns = useMemo(() => {
@@ -52,6 +58,8 @@ export default function Tables() {
         tableName={selectedTable}
         rows={rowData}
         columns={currentCloumns}
+        selected={selectedRow}
+        setSelected={handleSelectRow}
       />
     </Container>
   );
