@@ -61,6 +61,7 @@ export const WriteArticle = () => {
         title: titleValue,
         description: markdown,
         created_at: currentDate,
+        category: subCategory,
       };
       postBlogWriteData(data);
     }

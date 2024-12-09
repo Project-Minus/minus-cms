@@ -15,7 +15,10 @@ export const getAllTable = async (tableName: string) => {
 
 // 블로그 생성
 export const postBlogWriteData = async (postData) => {
-  const { data, error } = await supabase.from("article").insert([postData]);
+  const { data, error } = await supabase
+    .from("article")
+    .insert([postData])
+    .select();
   if (error) {
     console.error("Error inserting data:", error);
   } else {
