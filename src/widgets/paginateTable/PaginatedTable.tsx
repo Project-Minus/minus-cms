@@ -187,7 +187,7 @@ interface Props {
 export default function PaginatedTable(props: Props) {
   const { tableName, rows, columns, selected, setSelected } = props;
 
-  const [order, setOrder] = useState<Order>("asc");
+  const [order, setOrder] = useState<Order>("desc");
   const [orderBy, setOrderBy] = useState<string>("id");
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
