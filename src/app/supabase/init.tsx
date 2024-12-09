@@ -90,6 +90,7 @@ export const filterContainArrayTable = async (
 
 //post
 //data 추가 메서드
+//[{id:1,name:hi}, {id:2,name:hello}...]
 export const setRows = async (
   tableName: string,
   insertValue: Array<{ [key: string]: unknown }>,
@@ -103,6 +104,7 @@ export const setRows = async (
 };
 
 //put
+//단일 업데이트
 export const updateRow = async (tableName: string, updateValue: Database) => {
   const { data, error } = await supabase
     .from(tableName)
