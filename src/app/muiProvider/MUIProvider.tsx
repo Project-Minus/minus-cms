@@ -73,11 +73,6 @@ export default function MUIProvider(props: ProviderProps) {
           title: "Tables",
           icon: <DescriptionIcon />,
         },
-        {
-          segment: "columns",
-          title: "Columns",
-          icon: <DescriptionIcon />,
-        },
       ],
     },
     {

@@ -66,7 +66,7 @@ const mainRouter = createBrowserRouter([
             element: <Tables />,
           },
           {
-            path: "columns",
+            path: "columns/:type/:id",
             element: <Columns />,
           },
         ],

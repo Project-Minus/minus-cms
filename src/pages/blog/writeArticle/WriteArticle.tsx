@@ -1,6 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
+import { useGetTable } from "@app/supabase/useGetTable";
 import { Box, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,21 +12,50 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Category } from "@shared/types/tableType";
 import { Editor } from "@toast-ui/react-editor";
 import { Dayjs } from "dayjs";
 
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
+
+import "./writeArticle.scss";
 
 export const WriteArticle = () => {
   const { palette } = useTheme();
+  const editorRef = useRef<Editor>(null);
+  const { data: categoryData } = useGetTable<Category>("category");
   const [currentDate, setCurrentDate] = useState<Dayjs | null>(null);
-
   const [category, setCategory] = useState<string>("");
+  const [subCategory, setSubCategory] = useState<string>("");
 
-  const handleChange = (e: SelectChangeEvent) => {
+  const subCategoryList = useMemo(() => {
+    return categoryData?.filter((data) => data.name === category)?.[0]
+      ?.sub_category;
+  }, [categoryData, category]);
+
+  const handleChangeCategory = (e: SelectChangeEvent) => {
     const value = e.target.value;
 
     setCategory(value);
+  };
+
+  const handleChangeSubCategory = (e: SelectChangeEvent) => {
+    const value = e.target.value;
+
+    setSubCategory(value);
+  };
+
+  const handlePost = () => {
+    if (editorRef.current) {
+      const instance = editorRef.current.getInstance();
+      const markdown = instance.getMarkdown();
+
+      console.log("Markdown:", markdown);
+
+      const html = instance.getHTML();
+
+      console.log("HTML:", html);
+    }
   };
 
   return (
@@ -93,7 +123,6 @@ export const WriteArticle = () => {
             </DemoContainer>
           </LocalizationProvider>
         </Box>
-
         <Box
           sx={{
             display: "flex",
@@ -111,12 +140,13 @@ export const WriteArticle = () => {
                 id="demo-simple-select"
                 value={category}
                 label="Category"
-                onChange={handleChange}
+                onChange={handleChangeCategory}
               >
-                <MenuItem value={10}>App</MenuItem>
-                <MenuItem value={20}>Front</MenuItem>
-                <MenuItem value={30}>Back</MenuItem>
-                <MenuItem value={30}>Infra</MenuItem>
+                {categoryData
+                  ?.map((category) => category.name)
+                  ?.map((name) => {
+                    return <MenuItem value={name}>{name}</MenuItem>;
+                  })}
               </Select>
             </FormControl>
           </Box>
@@ -129,12 +159,14 @@ export const WriteArticle = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={category}
+                value={subCategory}
                 label="Category"
-                onChange={handleChange}
+                onChange={handleChangeSubCategory}
+                disabled={!category}
               >
-                <MenuItem value={10}>Ios</MenuItem>
-                <MenuItem value={20}>Android</MenuItem>
+                {subCategoryList?.map((subCategory) => {
+                  return <MenuItem value={subCategory}>{subCategory}</MenuItem>;
+                })}
               </Select>
             </FormControl>
           </Box>
@@ -145,12 +177,18 @@ export const WriteArticle = () => {
         className={`editor-panel-editor${palette?.mode === "dark" ? " toastui-editor-dark" : ""}`}
       >
         <Editor
+          ref={editorRef}
           initialValue="hello react editor world!"
           previewStyle="vertical"
           height="600px"
           initialEditType="markdown"
           useCommandShortcut={true}
         />
+      </div>
+      <div className="post-btn-box">
+        <button className="post-btn" onClick={handlePost}>
+          Post
+        </button>
       </div>
     </Box>
   );
