@@ -13,6 +13,16 @@ export const getAllTable = async (tableName: string) => {
   return { data, error };
 };
 
+// 블로그 생성
+export const postBlogWriteData = async (postData) => {
+  const { data, error } = await supabase.from("article").insert([postData]);
+  if (error) {
+    console.error("Error inserting data:", error);
+  } else {
+    console.log("Inserted data:", data);
+  }
+};
+
 export const getPaginatedTable = async (
   tableName: string,
   startIndex: number,

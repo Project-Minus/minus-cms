@@ -1,6 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
+import { postBlogWriteData } from "@app/supabase/init";
 import { useGetTable } from "@app/supabase/useGetTable";
 import { Box, TextField } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -24,7 +25,11 @@ export const WriteArticle = () => {
   const { palette } = useTheme();
   const editorRef = useRef<Editor>(null);
   const { data: categoryData } = useGetTable<Category>("category");
+
+  const [titleValue, setTitleValue] = useState<string>("");
+
   const [currentDate, setCurrentDate] = useState<Dayjs | null>(null);
+
   const [category, setCategory] = useState<string>("");
   const [subCategory, setSubCategory] = useState<string>("");
 
@@ -50,11 +55,14 @@ export const WriteArticle = () => {
       const instance = editorRef.current.getInstance();
       const markdown = instance.getMarkdown();
 
-      console.log("Markdown:", markdown);
+      // const html = instance.getHTML();
 
-      const html = instance.getHTML();
-
-      console.log("HTML:", html);
+      const data = {
+        title: titleValue,
+        description: markdown,
+        created_at: currentDate,
+      };
+      postBlogWriteData(data);
     }
   };
 
@@ -101,6 +109,11 @@ export const WriteArticle = () => {
             id="outlined-required"
             label="Title"
             defaultValue="Hello World"
+            value={titleValue}
+            onChange={(e) => {
+              const value = e.target.value;
+              setTitleValue(value);
+            }}
             sx={{
               minWidth: 650,
               " .css-6ou73t-MuiInputBase-root-MuiOutlinedInput-root": {
