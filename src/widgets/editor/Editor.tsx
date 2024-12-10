@@ -61,10 +61,10 @@ export default function Editor(props: Props) {
       onChange={() => {
         if (editorRef.current) {
           const instance = editorRef.current.getInstance();
-          const markdown = instance.getMarkdown();
+          // const markdown = instance.getMarkdown();
 
-          // const html = instance.getHTML();
-          props.changeContents(markdown);
+          const html = instance.getHTML();
+          props.changeContents(html);
         }
       }}
       customHTMLRenderer={{
