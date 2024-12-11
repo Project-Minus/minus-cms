@@ -14,19 +14,21 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Category } from "@shared/types/tableType";
-import { Editor } from "@toast-ui/react-editor";
+import Editor from "@widgets/editor/Editor";
 import { Dayjs } from "dayjs";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 import "./writeArticle.scss";
+import { useNavigate } from "react-router-dom";
 
 export const WriteArticle = () => {
+  const navigate = useNavigate();
   const { palette } = useTheme();
-  const editorRef = useRef<Editor>(null);
   const { data: categoryData } = useGetTable<Category>("category");
 
   const [titleValue, setTitleValue] = useState<string>("");
+  const [contentValue, setContentValue] = useState<string>("");
 
   const [currentDate, setCurrentDate] = useState<Dayjs | null>(null);
 
@@ -37,6 +39,10 @@ export const WriteArticle = () => {
     return categoryData?.filter((data) => data.name === category)?.[0]
       ?.sub_category;
   }, [categoryData, category]);
+
+  const handleChangeContents = (contents: string) => {
+    setContentValue(contents);
+  };
 
   const handleChangeCategory = (e: SelectChangeEvent) => {
     const value = e.target.value;
@@ -50,21 +56,21 @@ export const WriteArticle = () => {
     setSubCategory(value);
   };
 
+  const successPost = () => {
+    window.alert("post 성공!");
+    navigate("/blog/list-article");
+  };
+  const failedPost = () => {
+    window.alert("post 실패!");
+  };
   const handlePost = () => {
-    if (editorRef.current) {
-      const instance = editorRef.current.getInstance();
-      const markdown = instance.getMarkdown();
-
-      // const html = instance.getHTML();
-
-      const data = {
-        title: titleValue,
-        description: markdown,
-        created_at: currentDate,
-        category: subCategory,
-      };
-      postBlogWriteData(data);
-    }
+    const data = {
+      title: titleValue,
+      description: contentValue,
+      created_at: currentDate,
+      category: subCategory,
+    };
+    postBlogWriteData(data, successPost, failedPost);
   };
 
   return (
@@ -186,13 +192,12 @@ export const WriteArticle = () => {
           </Box>
         </Box>
       </Box>
-
       <div
         className={`editor-panel-editor${palette?.mode === "dark" ? " toastui-editor-dark" : ""}`}
       >
         <Editor
-          ref={editorRef}
-          initialValue="hello react editor world!"
+          changeContents={handleChangeContents}
+          initialValue=" "
           previewStyle="vertical"
           height="600px"
           initialEditType="markdown"

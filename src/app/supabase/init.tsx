@@ -14,14 +14,20 @@ export const getAllTable = async (tableName: string) => {
 };
 
 // 블로그 생성
-export const postBlogWriteData = async (postData) => {
+export const postBlogWriteData = async (
+  postData,
+  onSuccess?: () => void,
+  onFail?: () => void,
+) => {
   const { data, error } = await supabase
     .from("article")
     .insert([postData])
     .select();
   if (error) {
+    onFail?.();
     console.error("Error inserting data:", error);
   } else {
+    onSuccess?.();
     console.log("Inserted data:", data);
   }
 };
