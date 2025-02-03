@@ -30,7 +30,7 @@ export default function Editor(props: Props) {
         return false;
       }
       url = url?.split("=").at(-1) ?? "";
-      const str = `<iframe src="https://${url}" title="component"></iframe>`;
+      const str = `<iframe src="${url}" title="component"></iframe>`;
       editorRef.current?.getInstance().insertText(str);
       return true;
     });
@@ -45,7 +45,7 @@ export default function Editor(props: Props) {
           // backgroundImage: `url(${linkLogo})`,
           backgroundSize: "25px",
         },
-        command: "addYoutube", // 트리거를 담으면 툴바아이템의 클릭이벤트에 맞춰진다.
+        command: "addIframe", // 트리거를 담으면 툴바아이템의 클릭이벤트에 맞춰진다.
       },
     );
 
