@@ -1,4 +1,3 @@
-import { queryClient } from "@App";
 import { deleteRows } from "@app/supabase/init";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -31,6 +30,7 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { queryClient } from "../../App";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
