@@ -13,25 +13,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. Node.js 환경 설정 (pnpm을 사용하려면 필수)
+      # pnpm 설치
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      # Node.js 환경 설정 (pnpm을 사용하려면 필수)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm" # pnpm 캐싱 활성화 (속도 개선)
 
+      # pnpm 설치
       - name: Install pnpm
         run: npm install -g pnpm
 
-      # 2. pnpm 설치
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      # 3. 패키지 설치
+      # 패키지 설치
       - name: Install dependencies
         run: pnpm install
 
-      # 4. 빌드 실행
+      # 빌드 실행
       - name: Build project
         run: pnpm build
 
