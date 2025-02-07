@@ -1,0 +1,50 @@
+name: Deploy to S3 on Develop Push
+
+on:
+  push:
+    branches:
+      - develop # develop 브랜치에 push 발생 시 실행
+
+jobs:
+  build:
+    name: install and build
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 코드 체크아웃 (GitHub에서 소스 가져오기)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Node.js 환경 설정
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # 원하는 Node.js 버전 설정
+
+      # 3. 패키지 설치 (npm 또는 yarn 사용 가능)
+      - name: Install dependencies
+        run: pnpm install # 또는 yarn install
+
+      # 4. 프로젝트 빌드
+      - name: Build project
+        run: pnpm build # 또는 yarn build
+
+  deploy:
+    name: deploy in s3 bucket
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # 5. AWS S3에 업로드
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_CMS_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "ap-northeast-2" # 🚀 S3 버킷이 있는 AWS 리전 (서울: ap-northeast-2)
+          SOURCE_DIR: "dist" # 🚀 빌드된 파일이 있는 폴더 (React는 dist 또는 build)
+
+      # 6. 배포 완료 메시지 출력
+      - name: Deployment complete
+        run: echo "🚀 Deploy to S3 completed!"

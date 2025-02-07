@@ -1,4 +1,5 @@
 import { componentRouterInPage } from "@app/routers/MainRouters";
+import { useColorThemeStyle } from "@hooks/useColorThemeStyle";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LayersIcon from "@mui/icons-material/Layers";
@@ -15,6 +16,8 @@ interface ProviderProps {
 
 export default function MUIProvider(props: ProviderProps) {
   const { children, cutomWindow } = props;
+  const colorScheme = useColorThemeStyle();
+
   const windows = cutomWindow !== undefined ? cutomWindow() : undefined;
   const componentNavigation = () => {
     const childrens = componentRouterInPage.children.map((child) => {
@@ -134,16 +137,24 @@ export default function MUIProvider(props: ProviderProps) {
       window={windows}
       branding={{
         logo: (
-          <img
-            onClick={() => {
-              if (window.location.pathname.includes("frame")) {
-                return;
-              }
-              window.location.href = "/";
-            }}
-            src={logo}
-            style={{ width: "104px", padding: 8, height: 32, margin: 4 }}
-          />
+          <div style={{ width: "100%" }}>
+            <img
+              onClick={() => {
+                if (window.location.pathname.includes("frame")) {
+                  return;
+                }
+                window.location.href = "/";
+              }}
+              src={logo}
+              style={{
+                width: "104px",
+                padding: 8,
+                height: 32,
+                margin: 4,
+                ...colorScheme.logo,
+              }}
+            />
+          </div>
         ),
         title: "",
       }}

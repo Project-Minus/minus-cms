@@ -1,4 +1,26 @@
-.loginWrapper {
-  width: 100vw;
-  height: 100vh;
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 300px;
+  height: 400px;
+  > img {
+    align-self: center;
+    width: 100px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(103deg)
+      brightness(105%) contrast(105%);
+  }
+  > P {
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  > input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  > button {
+    margin-top: 30px;
+    align-self: flex-end;
+  }
 }
