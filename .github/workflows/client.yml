@@ -34,12 +34,6 @@ jobs:
       # 빌드 실행
       - name: Build project
         run: pnpm build
-
-  deploy:
-    name: deploy in s3 bucket
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       # 5. AWS S3에 업로드
       - name: Deploy to S3
         env:
