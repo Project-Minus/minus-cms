@@ -49,7 +49,7 @@ export default function Editor(props: Props) {
       },
     );
 
-    editorRef.current?.getInstance().removeHook("addImageBlobHook");
+    // editorRef.current?.getInstance().removeHook("addImageBlobHook");
     //addHook...
   }, []);
 
