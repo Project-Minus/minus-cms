@@ -20,13 +20,17 @@ export default function MUIProvider(props: ProviderProps) {
 
   const windows = cutomWindow !== undefined ? cutomWindow() : undefined;
   const componentNavigation = () => {
-    const childrens = componentRouterInPage.children.map((child) => {
-      return {
-        segment: child.path,
-        title: child.path.charAt(0).toUpperCase() + child.path.slice(1),
-        icon: <DescriptionIcon />,
-      };
-    });
+    const childrens = componentRouterInPage.children
+      .filter((child) => {
+        return !child.path.includes("mini");
+      })
+      .map((child) => {
+        return {
+          segment: child.path,
+          title: child.path.charAt(0).toUpperCase() + child.path.slice(1),
+          icon: <DescriptionIcon />,
+        };
+      });
 
     return {
       segment: "component",

@@ -25,6 +25,10 @@ export const componentRouter: RouteObject = {
       path: "tooltip",
       element: <Tooltip />,
     },
+    {
+      path: "tooltip/mini",
+      element: <Tooltip />,
+    },
   ],
 };
 

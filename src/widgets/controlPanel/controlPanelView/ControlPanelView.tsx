@@ -6,7 +6,8 @@ import {
   PanelMainOption,
   PanelStoryOption,
 } from "@shared/types/option";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { flipPosition } from "../calcFlipPosition";
 import "./controlPanelView.scss";
 import PanelSwitcher from "../panelSwitcher/PanelSwitcher";
@@ -36,6 +37,7 @@ export default function ControlPanelView(props: PanelProps) {
     controlOptions,
     mainOptions,
   } = props;
+  const { pathname } = useLocation();
   const [flipController, setFlipController] = useState<boolean>(false);
   const [tabKey, setTabKey] = useState<string>("main");
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
@@ -50,20 +52,34 @@ export default function ControlPanelView(props: PanelProps) {
 
   const controlOptionsAddDefault = [defaultControlOption, ...controlOptions];
   const flipClass = flipController ? "flip" : "non-flip";
-  const tabItems = [
-    {
-      key: "docs",
-      label: "Docs",
-    },
-    {
-      key: "main",
-      label: "Main property",
-    },
-    {
-      key: "control",
-      label: "Control",
-    },
-  ];
+  const tabItems = useMemo(() => {
+    if (pathname.includes("mini")) {
+      return [
+        {
+          key: "main",
+          label: "Main property",
+        },
+        {
+          key: "control",
+          label: "Control",
+        },
+      ];
+    }
+    return [
+      {
+        key: "docs",
+        label: "Docs",
+      },
+      {
+        key: "main",
+        label: "Main property",
+      },
+      {
+        key: "control",
+        label: "Control",
+      },
+    ];
+  }, [pathname]);
   const onChangeTabKey = (key: string) => {
     const currentTab = tabKey;
     const nextTab = key;
