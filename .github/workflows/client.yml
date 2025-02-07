@@ -47,7 +47,7 @@ jobs:
           args: --acl public-read --follow-symlinks --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_CMS_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "ap-northeast-2" # 🚀 S3 버킷이 있는 AWS 리전 (서울: ap-northeast-2)
           SOURCE_DIR: "dist" # 🚀 빌드된 파일이 있는 폴더 (React는 dist 또는 build)
