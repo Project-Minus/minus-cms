@@ -10,23 +10,27 @@ jobs:
     name: install and build
     runs-on: ubuntu-latest
     steps:
-      # 1. 코드 체크아웃 (GitHub에서 소스 가져오기)
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Node.js 환경 설정
+      # 1. Node.js 환경 설정 (pnpm을 사용하려면 필수)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # 원하는 Node.js 버전 설정
+          node-version: 20
+          cache: "pnpm" # pnpm 캐싱 활성화 (속도 개선)
 
-      # 3. 패키지 설치 (npm 또는 yarn 사용 가능)
+      # 2. pnpm 설치
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 3. 패키지 설치
       - name: Install dependencies
-        run: pnpm install # 또는 yarn install
+        run: pnpm install
 
-      # 4. 프로젝트 빌드
+      # 4. 빌드 실행
       - name: Build project
-        run: pnpm build # 또는 yarn build
+        run: pnpm build
 
   deploy:
     name: deploy in s3 bucket
