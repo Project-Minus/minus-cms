@@ -21,9 +21,7 @@ jobs:
           cache: "pnpm" # pnpm 캐싱 활성화 (속도 개선)
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8 # 원하는 pnpm 버전
+        run: npm install -g pnpm
 
       # 2. pnpm 설치
       - name: Install pnpm
