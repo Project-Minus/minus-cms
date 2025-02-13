@@ -15,7 +15,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Category } from "@shared/types/tableType";
 import Editor from "@widgets/editor/Editor";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 import { useMemo, useState } from "react";
 
@@ -23,6 +23,7 @@ import "./writeArticle.scss";
 import { useNavigate } from "react-router-dom";
 
 export const WriteArticle = () => {
+  const date = new Date();
   const navigate = useNavigate();
   const { palette } = useTheme();
   const { data: categoryData } = useGetTable<Category>("category");
@@ -30,15 +31,16 @@ export const WriteArticle = () => {
   const [titleValue, setTitleValue] = useState<string>("");
   const [contentValue, setContentValue] = useState<string>("");
 
-  const [currentDate, setCurrentDate] = useState<Dayjs | null>(null);
+  const [currentDate, setCurrentDate] = useState<Dayjs | null>(dayjs(date));
 
-  const [category, setCategory] = useState<string>("");
-  const [subCategory, setSubCategory] = useState<string>("");
-
+  const [category, setCategory] = useState<string>(
+    categoryData?.map((category) => category.name)?.[0],
+  );
   const subCategoryList = useMemo(() => {
     return categoryData?.filter((data) => data.name === category)?.[0]
       ?.sub_category;
   }, [categoryData, category]);
+  const [subCategory, setSubCategory] = useState<string>(subCategoryList?.[0]);
 
   const handleChangeContents = (contents: string) => {
     setContentValue(contents);
