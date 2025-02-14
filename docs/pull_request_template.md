@@ -1,5 +1,7 @@
 ## 추가/수정된 구성 요소 / Name of Component Added/Modified
 
+-
+
 ### 변경 유형 / Types of Changes
 
 - [ ] 핵심 / Core

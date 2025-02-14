@@ -2,6 +2,7 @@ import { useColorThemeStyle } from "@hooks/useColorThemeStyle";
 import { useState } from "react";
 import "./login.scss";
 import logo from "../../assets/minus.png";
+import { Tooltip } from "minus-test";
 
 interface Props {
   handleLogin: (email, password) => Promise<{ data; error }>;
@@ -21,6 +22,7 @@ export default function Login({ handleLogin }: Props) {
         }}
       />
       <p>PASSWORD</p>
+      <Tooltip contents={"hi"} bubbleContents={"hello"} draggable={true}/>
       <input
         type="password"
         onChange={(e) => {
