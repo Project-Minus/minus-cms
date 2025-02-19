@@ -120,11 +120,14 @@ export default function ControlPanelView(props: PanelProps) {
             defaultTextColor={textColor}
             onChange={onChangeTabKey}
             extraContent={
-              <OpenInBrowserIcon
-                onClick={() => {
-                  setFlipController((prev) => !prev);
-                }}
-              />
+              <>
+                {tabKey === "control" && <button>reset</button>}
+                <OpenInBrowserIcon
+                  onClick={() => {
+                    setFlipController((prev) => !prev);
+                  }}
+                />
+              </>
             }
             style={{
               borderBottom: "none",

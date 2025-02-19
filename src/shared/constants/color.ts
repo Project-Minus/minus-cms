@@ -27,3 +27,15 @@ export const colors: Array<Color> = [
   "pink",
   "yellow",
 ];
+
+export const icons: Array<string> = [
+  "😎",
+  "✌️",
+  "👍",
+  "❤️",
+  "🤐",
+  "🤖",
+  "👻",
+  "💯",
+  "🌐",
+];

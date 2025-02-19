@@ -13,6 +13,8 @@ export interface PanelControlOption {
   onColor?: string;
   onSwitch?: boolean;
   onSelect?: string;
+  onInput?: string | number;
+  inputType?: string;
   onChange?: (value?: string | boolean | number | ChangeEvent) => void;
 }
 export interface PanelMainOption {

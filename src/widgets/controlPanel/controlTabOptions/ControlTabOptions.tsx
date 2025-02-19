@@ -1,4 +1,4 @@
-import { colors } from "@shared/constants/color";
+import { colors, icons } from "@shared/constants/color";
 import { useGetTheme } from "@shared/hooks/useGetTheme";
 import Select from "@shared/select/Select";
 import Switch from "@shared/switch/Switch";
@@ -25,9 +25,11 @@ export default function ControlTabOption(props: Props) {
           panelKey,
           isShow,
           panelType,
+          inputType = "text",
           onColor,
           onSwitch,
           onSelect,
+          onInput,
           onChange,
         } = option;
         const defaultCalss = panelType === "default" ? " default-content" : "";
@@ -67,6 +69,22 @@ export default function ControlTabOption(props: Props) {
                 })}
               </div>
             )}
+            {panelType === "icon" && (
+              <div className="color-box">
+                {icons.map((icon, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        onChange(icon);
+                      }}
+                    >
+                      {icon}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             {panelType === "select" && (
               <div className="control-control-selector">
                 <Select
@@ -84,6 +102,11 @@ export default function ControlTabOption(props: Props) {
                   checked={onSwitch}
                   onChange={onChange}
                 />
+              </div>
+            )}
+            {panelType === "input" && (
+              <div className="control-control-selector">
+                <input type={inputType} onChange={onChange} value={onInput} />
               </div>
             )}
             {panelType === "default" && (

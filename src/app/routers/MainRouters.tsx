@@ -1,5 +1,6 @@
 import { WriteArticle, ListArtcle } from "@pages/blog";
 import Columns from "@pages/columns/Columns";
+import SnackbarStory from "@pages/componentsPage/snackbar/SnackbarStory";
 import Tooltip from "@pages/componentsPage/tooltip/Tooltip";
 import Dashboard from "@pages/dashboard/Dashboard";
 import Frame from "@pages/frame/Frame";
@@ -28,6 +29,14 @@ export const componentRouter: RouteObject = {
     {
       path: "tooltip/mini",
       element: <Tooltip />,
+    },
+    {
+      path: "snackbar",
+      element: <SnackbarStory />,
+    },
+    {
+      path: "snackbar/mini",
+      element: <SnackbarStory />,
     },
   ],
 };
