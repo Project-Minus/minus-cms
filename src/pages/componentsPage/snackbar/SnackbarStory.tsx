@@ -2,7 +2,7 @@ import { PanelControlOption } from "@shared/types/option";
 import ControlPanelView from "@widgets/controlPanel/controlPanelView/ControlPanelView";
 import SnackBar from "@widgets/snackBar/SnackBar";
 import { SnackbarConfigType } from "@widgets/snackBar/snackbarType";
-import { useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import {
   SNACKBAR_DOCS_DESCRIPTION,
   SNACKBAR_DOCS_TITLE,
@@ -43,12 +43,34 @@ export default function SnackbarStory() {
     }
   };
 
-  const [textColor, setTextColor] = useState<string>("default");
-  const [backgroundColor, setBackgroundColor] = useState<string>("default");
-  const [maxCount, setMaxCount] = useState<number>(100);
-  const [icons, setIcons] = useState<string>("default");
-  const [autoClose, setAutoClose] = useState<boolean>(true);
-  const [autoCloseTime, setAutoCloseTime] = useState<string>("2s");
+  const defaultValues = {
+    textColor: "default",
+    backgroundColor: "default",
+    maxCount: 100,
+    icons: "",
+    autoClose: true,
+    autoCloseTime: "2s",
+  };
+  const [textColor, setTextColor] = useState<string>(defaultValues.textColor);
+  const [backgroundColor, setBackgroundColor] = useState<string>(
+    defaultValues.backgroundColor,
+  );
+  const [maxCount, setMaxCount] = useState<number>(defaultValues.maxCount);
+  const [icons, setIcons] = useState<string>(defaultValues.icons);
+  const [autoClose, setAutoClose] = useState<boolean>(defaultValues.autoClose);
+  const [autoCloseTime, setAutoCloseTime] = useState<string>(
+    defaultValues.autoCloseTime,
+  );
+
+  const clickReset = () => {
+    setTextColor(defaultValues.textColor);
+    setBackgroundColor(defaultValues.backgroundColor);
+    setMaxCount(defaultValues.maxCount);
+    setIcons(defaultValues.icons);
+    setAutoClose(defaultValues.autoClose);
+    setAutoCloseTime(defaultValues.autoCloseTime);
+    console.log(defaultValues);
+  };
 
   const controlOptions: Array<PanelControlOption> = useMemo(() => {
     return [
@@ -76,8 +98,9 @@ export default function SnackbarStory() {
         panelType: "input",
         inputType: "number",
         onInput: maxCount,
-        onChange: (count) => {
-          setMaxCount(count as number);
+        onChange: (e: ChangeEvent<HTMLInputElement>) => {
+          const value = Number(e.target.value);
+          setMaxCount(value);
         },
       },
       {
@@ -104,8 +127,9 @@ export default function SnackbarStory() {
         onInput: autoCloseTime,
         panelType: "input",
         inputType: "text",
-        onChange: (time) => {
-          setAutoCloseTime(time as string);
+        onChange: (e: ChangeEvent<HTMLInputElement>) => {
+          const value = e.target.value;
+          setAutoCloseTime(value as string);
         },
       },
     ];
@@ -121,6 +145,7 @@ export default function SnackbarStory() {
       storyOptions={SNACKBAR_STORY_OPTIONS}
       controlOptions={controlOptions}
       mainOptions={SNACKBAR_MAIN_OPTIONS}
+      clickReset={clickReset}
     >
       <div className="snackbar-grid">
         {gridItem.map((item, index) => {
@@ -129,6 +154,10 @@ export default function SnackbarStory() {
             message: "",
             color: textColor,
             backgroundColor: backgroundColor,
+            maxCount,
+            icons,
+            autoClose,
+            autoCloseTime,
           };
           const clickButton = () => {
             getSnackbarMethod(item, config);

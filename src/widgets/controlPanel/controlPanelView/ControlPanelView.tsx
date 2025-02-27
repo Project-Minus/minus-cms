@@ -22,6 +22,7 @@ interface PanelProps {
   storyOptions: Array<PanelStoryOption>;
   controlOptions?: Array<PanelControlOption>;
   mainOptions?: Array<PanelMainOption>;
+  clickReset?: () => void;
 }
 
 let timeoutId: ReturnType<typeof setTimeout>;
@@ -36,6 +37,7 @@ export default function ControlPanelView(props: PanelProps) {
     storyOptions,
     controlOptions,
     mainOptions,
+    clickReset = () => {},
   } = props;
   const { pathname } = useLocation();
   const [flipController, setFlipController] = useState<boolean>(false);
@@ -121,7 +123,9 @@ export default function ControlPanelView(props: PanelProps) {
             onChange={onChangeTabKey}
             extraContent={
               <>
-                {tabKey === "control" && <button>reset</button>}
+                {tabKey === "control" && (
+                  <button onClick={clickReset}>reset</button>
+                )}
                 <OpenInBrowserIcon
                   onClick={() => {
                     setFlipController((prev) => !prev);

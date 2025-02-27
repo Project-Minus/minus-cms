@@ -72,11 +72,16 @@ export default function ControlTabOption(props: Props) {
             {panelType === "icon" && (
               <div className="color-box">
                 {icons.map((icon, index) => {
+                  const opacity =
+                    onInput === icon ? { opacity: 1 } : { opacity: 0.3 };
                   return (
                     <div
                       key={index}
                       onClick={() => {
                         onChange(icon);
+                      }}
+                      style={{
+                        ...opacity,
                       }}
                     >
                       {icon}
