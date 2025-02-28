@@ -262,7 +262,9 @@ export default function ImageViewer({ url, closeViewer }: Props) {
     imageScale,
     rotateLeftAndRight,
   ]);
-
+  const imageTransition = isMouseHold
+    ? "transform 0s cubic-bezier(0.215, 0.61, 0.355, 1) 0s,scale 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s, rotate 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s"
+    : "transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s,scale 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s, rotate 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s";
   return createPortal(
     <div
       className="imageViewerWrapper"
@@ -277,7 +279,11 @@ export default function ImageViewer({ url, closeViewer }: Props) {
           }}
           className="viewerContent"
           style={{
-            transform: `rotateZ(${rotateLeftAndRight * 90}deg) scale3d(${imageScale.X},${imageScale.Y},${imageScale.Z}) translate3d(${imageTranslate.X}px,${imageTranslate.Y}px,${imageTranslate.Z}px)`,
+            transform: `translate3d(${imageTranslate.X}px, ${imageTranslate.Y}px, ${imageTranslate.Z}px)`,
+            rotate: `z ${rotateLeftAndRight * 90}deg`,
+            scale: `${imageScale.X} ${imageScale.Y} ${imageScale.Z}`,
+            // rotate와 scale에만 transition 적용
+            transition: imageTransition,
           }}
         >
           <img
@@ -318,6 +324,9 @@ export default function ImageViewer({ url, closeViewer }: Props) {
             resetTranslate();
             handleImageScale("flip", "Y", 180);
           }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
         />
         <CgArrowsHAlt
           className="icon"
@@ -325,12 +334,18 @@ export default function ImageViewer({ url, closeViewer }: Props) {
             resetTranslate();
             handleImageScale("flip", "X", 180);
           }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
         />
         <CgCornerUpLeft
           onClick={() => {
             resetTranslate();
             const newRotateCount = rotateLeftAndRight - 1;
             setRotateLeftAndRight(newRotateCount);
+          }}
+          onMouseDown={(e) => {
+            e.preventDefault();
           }}
           className="icon"
         />
@@ -340,6 +355,9 @@ export default function ImageViewer({ url, closeViewer }: Props) {
             const newRotateCount = rotateLeftAndRight + 1;
             setRotateLeftAndRight(newRotateCount);
           }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
           className="icon"
         />
         <AiOutlineZoomIn
@@ -347,12 +365,18 @@ export default function ImageViewer({ url, closeViewer }: Props) {
           onClick={() => {
             handleZoom("zoomIn");
           }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
           style={{ ...getZoomBlockStyle(zoomBlock.zoomIn) }}
         />
         <AiOutlineZoomOut
           className="icon"
           onClick={() => {
             handleZoom("zoomOut");
+          }}
+          onMouseDown={(e) => {
+            e.preventDefault();
           }}
           style={{ ...getZoomBlockStyle(zoomBlock.zoomOut) }}
         />
