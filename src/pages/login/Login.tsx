@@ -1,6 +1,6 @@
 import { useColorThemeStyle } from "@hooks/useColorThemeStyle";
+import ImageViewer from "@widgets/imageViewer/ImageViewer";
 import SnackBar from "@widgets/snackBar/SnackBar";
-import { Tooltip } from "minus-test";
 import { useLayoutEffect, useState } from "react";
 import logo from "../../assets/minus.png";
 import "./login.scss";
@@ -21,7 +21,14 @@ export default function Login({ handleLogin }: Props) {
 
   return (
     <div className="loginBox">
-      <img style={{ ...colorScheme.logo }} src={logo} alt="" />
+      <img
+        style={{ ...colorScheme.logo }}
+        src={logo}
+        onClick={() => {
+          ImageViewer.open({ url: logo });
+        }}
+        alt=""
+      />
       <p>ID</p>
       <input
         type="text"
@@ -30,7 +37,6 @@ export default function Login({ handleLogin }: Props) {
         }}
       />
       <p>PASSWORD</p>
-      <Tooltip contents={"hi"} bubbleContents={"hello"} isDraggable={true} />
       <input
         type="password"
         onChange={(e) => {
