@@ -1,9 +1,10 @@
 import { useColorThemeStyle } from "@hooks/useColorThemeStyle";
-import ImageViewer from "@widgets/imageViewer/ImageViewer";
+import { ImageViewer } from "@minus-ui/core";
 import SnackBar from "@widgets/snackBar/SnackBar";
 import { useLayoutEffect, useState } from "react";
 import logo from "../../assets/minus.png";
 import "./login.scss";
+import "@minus-ui/core/imageViewer";
 
 interface Props {
   handleLogin: (email, password) => Promise<{ data; error }>;
@@ -20,14 +21,14 @@ export default function Login({ handleLogin }: Props) {
   }, []);
 
   return (
-    <div className="loginBox">
+    <div className="loginBox" style={{ marginTop: 500, height: "150vh" }}>
       <img
         style={{ ...colorScheme.logo }}
         src={logo}
+        alt=""
         onClick={() => {
           ImageViewer.open({ url: logo });
         }}
-        alt=""
       />
       <p>ID</p>
       <input

@@ -14,6 +14,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.13.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
+      '@minus-ui/core':
+        specifier: ^0.1.3
+        version: 0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/icons-material':
         specifier: ^6.1.5
         version: 6.4.6(@mui/material@6.4.6(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -515,6 +518,24 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@minus-ui/components@0.1.3':
+    resolution: {integrity: sha512-U0HtczxfnFjuAAXNLzx4IKx0fnwfofmps8bIKnWsnfishHu+KAj87kBMCxzM+ourDv8Qs6W/IuC+iwWMvIkxwQ==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
+  '@minus-ui/core@0.1.3':
+    resolution: {integrity: sha512-gWeP7+iCS90Ugx5aE/lYFoTPoFFHOP1f/agvnEWqvLzxlHuYYSJFPIjVE41Fq6IhTUnriKdHX1mzImF7EAP42w==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
+  '@minus-ui/styles@0.1.3':
+    resolution: {integrity: sha512-DkZ9vddfMrZLG5tGkISYcvKP9n70J2GiCLAywuOkp618YWp1Wm/gojF6y+qN8ZHT+87b8zldz4yP/O0Fc/Amjg==}
+
+  '@minus-ui/types@0.1.3':
+    resolution: {integrity: sha512-fSADSfTYyrRNe9mUjnmzTQE9+97hV/V2ThtMFqBxlNGJii+JEnU1aHZPw5XwP3xusaZrf/jMr9GfoOGb60ckSg==}
 
   '@mui/base@5.0.0-beta.59':
     resolution: {integrity: sha512-LQZ2907rPMut/2Lq6qSnyP+nqOHLO3buMv91m7SdLpqp/lXU5+8vUXcf5oOwTNis6hfSvYGSQJ493Q00OzxDmQ==}
@@ -3135,6 +3156,24 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@minus-ui/components@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@minus-ui/types': 0.1.3
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@minus-ui/core@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@minus-ui/components': 0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@minus-ui/styles': 0.1.3
+      '@minus-ui/types': 0.1.3
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@minus-ui/styles@0.1.3': {}
+
+  '@minus-ui/types@0.1.3': {}
 
   '@mui/base@5.0.0-beta.59(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:

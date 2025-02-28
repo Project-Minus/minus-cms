@@ -12,7 +12,6 @@ import {
   CgCornerUpRight,
 } from "react-icons/cg";
 import { ImageViewerConfig } from "./type";
-// import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 import { getZoomBlockStyle } from "./zoomBlockStyle";
 
 interface Props {
