@@ -1,5 +1,6 @@
 import { WriteArticle, ListArtcle } from "@pages/blog";
 import Columns from "@pages/columns/Columns";
+import ImageViewerStory from "@pages/componentsPage/imageViewer/ImageViewerStory";
 import SnackbarStory from "@pages/componentsPage/snackbar/SnackbarStory";
 import Tooltip from "@pages/componentsPage/tooltip/Tooltip";
 import Dashboard from "@pages/dashboard/Dashboard";
@@ -37,6 +38,14 @@ export const componentRouter: RouteObject = {
     {
       path: "snackbar/mini",
       element: <SnackbarStory />,
+    },
+    {
+      path: "imageviewer",
+      element: <ImageViewerStory />,
+    },
+    {
+      path: "imageviewer/mini",
+      element: <ImageViewerStory />,
     },
   ],
 };
