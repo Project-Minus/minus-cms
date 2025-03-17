@@ -1,3 +1,4 @@
+import { useColorThemeStyle } from "@hooks/useColorThemeStyle";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import { useGetTheme } from "@shared/hooks/useGetTheme";
 import Tabs from "@shared/tabs/Tabs";
@@ -9,8 +10,8 @@ import {
 import { ReactNode, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { flipPosition } from "../calcFlipPosition";
-import "./controlPanelView.scss";
 import PanelSwitcher from "../panelSwitcher/PanelSwitcher";
+import "./controlPanelView.scss";
 
 interface PanelProps {
   children: ReactNode;
@@ -44,6 +45,7 @@ export default function ControlPanelView(props: PanelProps) {
   const [tabKey, setTabKey] = useState<string>("main");
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const { textColor } = useGetTheme();
+  const colorScheme = useColorThemeStyle();
   const controllerHeight = tabKey === "docs" ? "100%" : "50%";
   const defaultControlOption: PanelControlOption = {
     panelKey: "Name",
@@ -56,6 +58,14 @@ export default function ControlPanelView(props: PanelProps) {
   const flipClass = flipController ? "flip" : "non-flip";
   const tabItems = useMemo(() => {
     if (pathname.includes("mini")) {
+      if (pathname.includes("imageviewer")) {
+        return [
+          {
+            key: "main",
+            label: "Main property",
+          },
+        ];
+      }
       return [
         {
           key: "main",
@@ -64,6 +74,18 @@ export default function ControlPanelView(props: PanelProps) {
         {
           key: "control",
           label: "Control",
+        },
+      ];
+    }
+    if (pathname.includes("imageviewer")) {
+      return [
+        {
+          key: "docs",
+          label: "Docs",
+        },
+        {
+          key: "main",
+          label: "Main property",
         },
       ];
     }
@@ -138,7 +160,10 @@ export default function ControlPanelView(props: PanelProps) {
             }}
           />
         </div>
-        <div className="controller-content-wrapper">
+        <div
+          className="controller-content-wrapper"
+          style={{ ...colorScheme.background }}
+        >
           <PanelSwitcher
             docsTitle={docsTitle}
             docsDescription={docsDescription}

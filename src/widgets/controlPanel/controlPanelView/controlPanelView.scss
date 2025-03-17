@@ -2,6 +2,7 @@
 
 .control-panel {
   position: relative;
+  z-index: 10000px;
   display: flex;
   flex-direction: column;
   width: 100%;

@@ -10,5 +10,8 @@ export const useColorThemeStyle = () => {
           ? "invert(100%) sepia(0%) saturate(0%) hue-rotate(103deg)"
           : "",
     },
+    background: {
+      background: colorScheme === "dark" ? "#121212" : "#FFFFFF",
+    },
   };
 };
