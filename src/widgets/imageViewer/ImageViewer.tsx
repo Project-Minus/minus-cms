@@ -125,7 +125,6 @@ export default function ImageViewer({ url, closeViewer }: Props) {
     if (isMouseHold) {
       const handlePointerMove = (e: PointerEvent) => {
         const { clientX, clientY } = e;
-        // console.log(imageContentRef.current?.clientWidth);
         const deltaX = clientX - imageStartPoint.X;
         const deltaY = clientY - imageStartPoint.Y;
 
@@ -231,13 +230,11 @@ export default function ImageViewer({ url, closeViewer }: Props) {
           );
         }
 
-        requestAnimationFrame(() => {
-          handleImageTranslate("X", translateX);
-          handleImageTranslate("Y", translateY);
+        handleImageTranslate("X", translateX);
+        handleImageTranslate("Y", translateY);
 
-          handleImageStartPoint("X", e.clientX);
-          handleImageStartPoint("Y", e.clientY);
-        });
+        handleImageStartPoint("X", e.clientX);
+        handleImageStartPoint("Y", e.clientY);
       };
 
       const handlePointerUp = () => {
@@ -292,7 +289,6 @@ export default function ImageViewer({ url, closeViewer }: Props) {
             style={{
               objectFit: "contain",
               cursor: isMouseHold ? "grabbing" : "grab",
-              filter: "hue-rotate(90deg)",
             }}
             onMouseDown={(e) => {
               handleImageStartPoint("X", e.clientX);

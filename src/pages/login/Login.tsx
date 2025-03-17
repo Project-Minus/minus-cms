@@ -21,7 +21,7 @@ export default function Login({ handleLogin }: Props) {
   }, []);
 
   return (
-    <div className="loginBox" style={{ marginTop: 500, height: "150vh" }}>
+    <div className="loginBox">
       <img
         style={{ ...colorScheme.logo }}
         src={logo}
