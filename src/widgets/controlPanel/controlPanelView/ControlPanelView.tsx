@@ -46,6 +46,7 @@ export default function ControlPanelView(props: PanelProps) {
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const { textColor } = useGetTheme();
   const colorScheme = useColorThemeStyle();
+  console.log(colorScheme);
   const controllerHeight = tabKey === "docs" ? "100%" : "50%";
   const defaultControlOption: PanelControlOption = {
     panelKey: "Name",
@@ -146,7 +147,12 @@ export default function ControlPanelView(props: PanelProps) {
             extraContent={
               <>
                 {tabKey === "control" && (
-                  <button onClick={clickReset}>reset</button>
+                  <button
+                    style={{ ...colorScheme.background }}
+                    onClick={clickReset}
+                  >
+                    reset
+                  </button>
                 )}
                 <OpenInBrowserIcon
                   onClick={() => {
